@@ -470,12 +470,12 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 
 										// Default
 										print '<td class="center">';
-										$constforvar = 'NOTESANDDOCUMENTS_'.strtoupper($myTmpObjectKey).'_ADDON';
+										$constforvar = 'NOTESANDDOCUMENTS_'.strtoupper($myTmpObjectKey).'_ADDON_PDF';
 										if ($conf->global->$constforvar == $name)
 										{
 											print img_picto($langs->trans("Default"), 'on');
 										} else {
-											print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+											print '<a href="'.$_SERVER["PHP_SELF"].'?object=NOTESANDDOCUMENTS_DocumentNote&action=setdoc&value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 										}
 										print '</td>';
 
