@@ -23,9 +23,9 @@
  */
 
 /**
- *  \file			htdocs/core/modules/documents/modules_myobject.php
- *  \ingroup		documents
- *  \brief			File that contains parent class for myobjects document models and parent class for myobjects numbering models
+ *  \file			htdocs/core/modules/notesanddocuments/modules_documentnote.php
+ *  \ingroup		notesanddocuments
+ *  \brief			File that contains parent class for documentnotes document models and parent class for documentnotes numbering models
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php'; // requir
 /**
  *	Parent class for documents models
  */
-abstract class ModelePDFMyObject extends CommonDocGenerator
+abstract class ModelePDFDocumentNote extends CommonDocGenerator
 {
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -51,7 +51,7 @@ abstract class ModelePDFMyObject extends CommonDocGenerator
 		// phpcs:enable
 		global $conf;
 
-		$type = 'myobject';
+		$type = 'documentnote';
 		$list = array();
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -64,9 +64,9 @@ abstract class ModelePDFMyObject extends CommonDocGenerator
 
 
 /**
- *  Parent class to manage numbering of MyObject
+ *  Parent class to manage numbering of DocumentNote
  */
-abstract class ModeleNumRefMyObject
+abstract class ModeleNumRefDocumentNote
 {
 	/**
 	 * @var string Error code (or message)
@@ -91,7 +91,7 @@ abstract class ModeleNumRefMyObject
 	public function info()
 	{
 		global $langs;
-		$langs->load("documents@documents");
+		$langs->load("notesanddocuments@notesanddocuments");
 		return $langs->trans("NoDescription");
 	}
 
@@ -103,7 +103,7 @@ abstract class ModeleNumRefMyObject
 	public function getExample()
 	{
 		global $langs;
-		$langs->load("documents@documents");
+		$langs->load("notesanddocuments@notesanddocuments");
 		return $langs->trans("NoExample");
 	}
 

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2022 SuperAdmin
+/* Copyright (C) 2022 Altairis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    documents/lib/documents.lib.php
- * \ingroup documents
- * \brief   Library files with common functions for Documents
+ * \file    notesanddocuments/lib/notesanddocuments.lib.php
+ * \ingroup notesanddocuments
+ * \brief   Library files with common functions for NotesAndDocuments
  */
 
 /**
@@ -26,28 +26,28 @@
  *
  * @return array
  */
-function documentsAdminPrepareHead()
+function notesanddocumentsAdminPrepareHead()
 {
 	global $langs, $conf;
 
-	$langs->load("documents@documents");
+	$langs->load("notesanddocuments@notesanddocuments");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/documents/admin/setup.php", 1);
+	$head[$h][0] = dol_buildpath("/notesanddocuments/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
 
 	/*
-	$head[$h][0] = dol_buildpath("/documents/admin/myobject_extrafields.php", 1);
+	$head[$h][0] = dol_buildpath("/notesanddocuments/admin/myobject_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$head[$h][2] = 'myobject_extrafields';
 	$h++;
 	*/
 
-	$head[$h][0] = dol_buildpath("/documents/admin/about.php", 1);
+	$head[$h][0] = dol_buildpath("/notesanddocuments/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'about';
 	$h++;
@@ -55,12 +55,12 @@ function documentsAdminPrepareHead()
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@documents:/documents/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@notesanddocuments:/notesanddocuments/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@documents:/documents/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@notesanddocuments:/notesanddocuments/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'documents');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'notesanddocuments');
 
 	return $head;
 }

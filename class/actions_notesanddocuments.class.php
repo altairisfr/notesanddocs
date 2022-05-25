@@ -16,17 +16,17 @@
  */
 
 /**
- * \file    documents/class/actions_documents.class.php
- * \ingroup documents
+ * \file    notesanddocuments/class/actions_notesanddocuments.class.php
+ * \ingroup notesanddocuments
  * \brief   Example hook overload.
  *
  * Put detailed description here.
  */
 
 /**
- * Class ActionsDocuments
+ * Class ActionsNotesAndDocuments
  */
-class ActionsDocuments
+class ActionsNotesAndDocuments
 {
 	/**
 	 * @var DoliDB Database handler.
@@ -89,13 +89,21 @@ class ActionsDocuments
 
 		$search_boxvalue = $parameters['search_boxvalue'];
 
-		if (((! empty($conf->documents->enabled) && $user->rights->documents->documents->read)))
+		if (((! empty($conf->notesanddocuments->enabled) && $user->rights->notesanddocuments->documentnote->read)))
 		{
-			$this->results['searchintodocuments']=array('position'=>1400151, 'img'=>'object_order', 'label'=>$langs->trans("Documents", $search_boxvalue),'text'=>img_picto('', 'object_order').' '.$langs->trans("Documents2", $search_boxvalue), 'url'=>dol_buildpath('/documents/documents_list.php',1).'?documents=1'.($search_boxvalue?'&sall='.urlencode($search_boxvalue):''));
+			$this->results['searchintodocuments']=array('position'=>1400151, 'img'=>'object_order', 'label'=>$langs->trans("NotesAndDocuments", $search_boxvalue),'text'=>img_picto('', 'object_order').' '.$langs->trans("NotesAndDocuments", $search_boxvalue), 'url'=>dol_buildpath('/notesanddocuments/documentnote_list.php',1).'?notesanddocuments=1'.($search_boxvalue?'&sall='.urlencode($search_boxvalue):''));
 		}
 
 		return 0;
 	}
+
+
+	function emailElementlist($parameters) {
+		global $conf, $user, $langs;
+		$this->results['documentnote'] = $langs->trans("DocumentNotes");
+		return;
+	}
+
 
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
@@ -183,7 +191,7 @@ class ActionsDocuments
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
 		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2')))		// do something only for the context 'somecontext1' or 'somecontext2'
 		{
-			$this->resprints = '<option value="0"'.($disabled ? ' disabled="disabled"' : '').'>'.$langs->trans("DocumentsMassAction").'</option>';
+			$this->resprints = '<option value="0"'.($disabled ? ' disabled="disabled"' : '').'>'.$langs->trans("NotesAndDocumentsMassAction").'</option>';
 		}
 
 		if (!$error) {
@@ -266,21 +274,21 @@ class ActionsDocuments
 	{
 		global $conf, $user, $langs;
 
-		$langs->load("documents@documents");
+		$langs->load("notesanddocuments@notesanddocuments");
 
 		$this->results = array();
 
 		$head = array();
 		$h = 0;
 
-		if ($parameters['tabfamily'] == 'documents') {
+		if ($parameters['tabfamily'] == 'notesanddocuments') {
 			$head[$h][0] = dol_buildpath('/module/index.php', 1);
 			$head[$h][1] = $langs->trans("Home");
 			$head[$h][2] = 'home';
 			$h++;
 
-			$this->results['title'] = $langs->trans("Documents");
-			$this->results['picto'] = 'documents@documents';
+			$this->results['title'] = $langs->trans("NotesAndDocuments");
+			$this->results['picto'] = 'notesanddocuments@notesanddocuments';
 		}
 
 		$head[$h][0] = 'customreports.php?objecttype='.$parameters['objecttype'].(empty($parameters['tabfamily']) ? '' : '&tabfamily='.$parameters['tabfamily']);
@@ -309,7 +317,7 @@ class ActionsDocuments
 		global $user;
 
 		if ($parameters['features'] == 'myobject') {
-			if ($user->rights->documents->myobject->read) {
+			if ($user->rights->notesanddocuments->myobject->read) {
 				$this->results['result'] = 1;
 				return 1;
 			} else {

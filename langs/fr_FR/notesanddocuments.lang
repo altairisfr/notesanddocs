@@ -1,4 +1,4 @@
-# Copyright (C) 2022 SuperAdmin
+# Copyright (C) 2022 Altairis
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,24 +17,24 @@
 # Générique
 #
 
-# Module label 'ModuleDocumentsName'
-ModuleDocumentsName = Documents
-# Module description 'ModuleDocumentsDesc'
-ModuleDocumentsDesc = Description de Documents
+# Module label 'ModuleNotesAndDocumentsName'
+ModuleNotesAndDocumentsName = NotesAndDocuments
+# Module description 'ModuleNotesAndDocumentsDesc'
+ModuleNotesAndDocumentsDesc = Description de NotesAndDocuments
 
 #
 # Page d'administration
 #
-DocumentsSetup = Configuration du module Documents
+NotesAndDocumentsSetup = Configuration du module NotesAndDocuments
 Settings = Réglages
-DocumentsSetupPage = Page de configuration du module Documents
+NotesAndDocumentsSetupPage = Page de configuration du module NotesAndDocuments
 
 #
 # Page À propos
 #
 About = À propos
-DocumentsAbout = À propos de Documents
-DocumentsAboutPage = Page à propos de Documents
+NotesAndDocumentsAbout = À propos de NotesAndDocuments
+NotesAndDocumentsAboutPage = Page à propos de NotesAndDocuments
 
 #
 # Page d'exemple
@@ -48,17 +48,19 @@ MyWidget = Mon widget
 MyWidgetDescription = Description de mon widget
 
 #
-# Documents
+#NotesAndDocuments
 #
+TypeDocument = Type de document
 Content = Contenu
-Keywords = Mots clés 
+Keywords = Mots clés
 Create = Créer
 
-#Documentss = Documents
-Documents = Documents
+DocumentNotes = Notes et Documents
+DocumentNote = Notes et Documents
+DocumentNote2 = Note / Document
+ListDocumentNote = Liste des Notes et Documents
+NewDocumentNote = Nouvelle Note / Document
 
-ListDocuments = Liste des documents
-NewDocuments = Nouveau document
+NotesAndDocuments =Notes et documents
 
-
-#* <br>* Séparer les mots clés par une virgule
+SendingEmailDocument=Modèle exemple

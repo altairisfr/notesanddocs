@@ -1,11 +1,11 @@
-# DOCUMENTS FOR [DOLIBARR ERP CRM](https://www.dolibarr.org)
+# NOTESANDDOCUMENTS FOR [DOLIBARR ERP CRM](https://www.dolibarr.org)
 
 ## Features
 
 Description...
 
 <!--
-![Screenshot documents](img/screenshot_documents.png?raw=true "Documents"){imgmd}
+![Screenshot notesanddocuments](img/screenshot_notesanddocuments.png?raw=true "NotesAndDocuments"){imgmd}
 -->
 
 Other modules are available on [Dolistore.com](https://www.dolistore.com).
@@ -58,11 +58,11 @@ Note: If this screen tell you there is no custom directory, check your setup is 
 
 ### From a GIT repository
 
-- Clone the repository in ```$dolibarr_main_document_root_alt/documents```
+- Clone the repository in ```$dolibarr_main_document_root_alt/notesanddocuments```
 
 ```sh
 cd ....../custom
-git clone git@github.com:gitlogin/documents.git documents
+git clone git@github.com:gitlogin/notesanddocuments.git notesanddocuments
 ```
 
 ### <a name="final_steps"></a>Final steps

@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    documents/css/documents.css.php
- * \ingroup documents
- * \brief   CSS file for module Documents.
+ * \file    notesanddocuments/css/notesanddocuments.css.php
+ * \ingroup notesanddocuments
+ * \brief   CSS file for module NotesAndDocuments.
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled because need to load personalized language
@@ -70,10 +70,10 @@ else header('Cache-Control: no-cache');
 
 ?>
 
-div.mainmenu.documents::before {
+div.mainmenu.notesanddocuments::before {
 	content: "\f15c";
 }
-div.mainmenu.documents {
+div.mainmenu.notesanddocuments {
 	background-image: none;
 }
 

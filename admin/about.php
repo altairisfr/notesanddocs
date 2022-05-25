@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2022 SuperAdmin
+ * Copyright (C) 2022 Altairis
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
  */
 
 /**
- * \file    documents/admin/about.php
- * \ingroup documents
- * \brief   About page of module Documents.
+ * \file    notesanddocuments/admin/about.php
+ * \ingroup notesanddocuments
+ * \brief   About page of module NotesAndDocuments.
  */
 
 // Load Dolibarr environment
@@ -39,10 +39,10 @@ if (!$res) die("Include of main fails");
 // Libraries
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once '../lib/documents.lib.php';
+require_once '../lib/notesanddocuments.lib.php';
 
 // Translations
-$langs->loadLangs(array("errors", "admin", "documents@documents"));
+$langs->loadLangs(array("errors", "admin", "notesanddocuments@notesanddocuments"));
 
 // Access control
 if (!$user->admin) accessforbidden();
@@ -65,20 +65,20 @@ $backtopage = GETPOST('backtopage', 'alpha');
 
 $form = new Form($db);
 
-$page_name = "DocumentsAbout";
+$page_name = "NotesAndDocumentsAbout";
 llxHeader('', $langs->trans($page_name));
 
 // Subheader
 $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
 
-print load_fiche_titre($langs->trans($page_name), $linkback, 'object_documents@documents');
+print load_fiche_titre($langs->trans($page_name), $linkback, 'object_notesanddocuments@notesanddocuments');
 
 // Configuration header
-$head = documentsAdminPrepareHead();
-dol_fiche_head($head, 'about', '', 0, 'documents@documents');
+$head = notesanddocumentsAdminPrepareHead();
+dol_fiche_head($head, 'about', '', 0, 'notesanddocuments@notesanddocuments');
 
-dol_include_once('/documents/core/modules/modDocuments.class.php');
-$tmpmodule = new modDocuments($db);
+dol_include_once('/notesanddocuments/core/modules/modNotesAndDocuments.class.php');
+$tmpmodule = new modNotesAndDocuments($db);
 print $tmpmodule->getDescLong();
 
 // Page end

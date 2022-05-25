@@ -16,27 +16,27 @@
  */
 
 /**
- * \file    lib/documents_documents.lib.php
- * \ingroup documents
- * \brief   Library files with common functions for Documents
+ * \file    lib/notesanddocuments_documentnote.lib.php
+ * \ingroup notesanddocuments
+ * \brief   Library files with common functions for DocumentNote
  */
 
 /**
- * Prepare array of tabs for Documents
+ * Prepare array of tabs for DocumentNote
  *
- * @param	Documents	$object		Documents
+ * @param	DocumentNote	$object		DocumentNote
  * @return 	array					Array of tabs
  */
-function documentsPrepareHead($object)
+function documentnotePrepareHead($object)
 {
 	global $db, $langs, $conf;
 
-	$langs->load("documents@documents");
+	$langs->load("notesanddocuments@notesanddocuments");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/documents/documents_card.php", 1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath("/notesanddocuments/documentnote_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("Card");
 	$head[$h][2] = 'card';
 	$h++;
@@ -46,7 +46,7 @@ function documentsPrepareHead($object)
 		$nbNote = 0;
 		if (!empty($object->note_private)) $nbNote++;
 		if (!empty($object->note_public)) $nbNote++;
-		$head[$h][0] = dol_buildpath('/documents/documents_note.php', 1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/notesanddocuments/documentnote_note.php', 1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) $head[$h][1] .= (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
 		$head[$h][2] = 'note';
@@ -55,16 +55,16 @@ function documentsPrepareHead($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->documents->dir_output."/documents/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $conf->notesanddocuments->dir_output."/documentnote/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = dol_buildpath("/documents/documents_document.php", 1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath("/notesanddocuments/documentnote_document.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) $head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
 	$head[$h][2] = 'document';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/documents/documents_agenda.php", 1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath("/notesanddocuments/documentnote_agenda.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("Events");
 	$head[$h][2] = 'agenda';
 	$h++;
@@ -72,14 +72,14 @@ function documentsPrepareHead($object)
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@documents:/documents/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@notesanddocuments:/notesanddocuments/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@documents:/documents/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@notesanddocuments:/notesanddocuments/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'documents@documents');
+	complete_head_from_modules($conf, $langs, $object, $head, $h, 'documentnote@notesanddocuments');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'documents@documents', 'remove');
+	complete_head_from_modules($conf, $langs, $object, $head, $h, 'documentnote@notesanddocuments', 'remove');
 
 	return $head;
 }

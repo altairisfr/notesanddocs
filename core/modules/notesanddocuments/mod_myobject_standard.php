@@ -18,11 +18,11 @@
  */
 
 /**
- *  \file       htdocs/core/modules/documents/mod_myobject_standard.php
- *  \ingroup    documents
+ *  \file       htdocs/core/modules/notesanddocuments/mod_myobject_standard.php
+ *  \ingroup    notesanddocuments
  *  \brief      File of class to manage MyObject numbering rules standard
  */
-dol_include_once('/documents/core/modules/documents/modules_myobject.php');
+dol_include_once('/notesanddocuments/core/modules/notesanddocuments/modules_myobject.php');
 
 
 /**
@@ -87,7 +87,7 @@ class mod_myobject_standard extends ModeleNumRefMyObject
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."documents_myobject";
+		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_myobject";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " AND entity = ".$conf->entity;
@@ -125,7 +125,7 @@ class mod_myobject_standard extends ModeleNumRefMyObject
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."documents_myobject";
+		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_myobject";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " AND entity = ".$conf->entity;

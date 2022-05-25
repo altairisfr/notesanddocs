@@ -17,9 +17,9 @@
  */
 
 /**
- * \file        class/documents.class.php
- * \ingroup     documents
- * \brief       This file is a CRUD class file for Documents (Create/Read/Update/Delete)
+ * \file        class/documentnote.class.php
+ * \ingroup     notesanddocuments
+ * \brief       This file is a CRUD class file for DocumentNote (Create/Read/Update/Delete)
  */
 
 // Put here all includes required by your class file
@@ -28,19 +28,19 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 //require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
 /**
- * Class for Documents
+ * Class for DocumentNote
  */
-class Documents extends CommonObject
+class DocumentNote extends CommonObject
 {
 	/**
 	 * @var string ID to identify managed object.
 	 */
-	public $element = 'documents';
+	public $element = 'documentnote';
 
 	/**
 	 * @var string Name of table without prefix where object is stored. This is also the key used for extrafields management.
 	 */
-	public $table_element = 'documents_documents';
+	public $table_element = 'notesanddocuments_documentnote';
 
 	/**
 	 * @var int  Does this object support multicompany module ?
@@ -54,7 +54,7 @@ class Documents extends CommonObject
 	public $isextrafieldmanaged = 1;
 
 	/**
-	 * @var string String with name of icon for documents. Must be the part after the 'object_' into object_documents.png
+	 * @var string String with name of icon for documentnote. Must be the part after the 'object_' into object_documentnote.png
 	 */
 	public $picto = 'donation';
 
@@ -95,34 +95,38 @@ class Documents extends CommonObject
 	 */
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>0, 'noteditable'=>'1', 'index'=>1, 'comment'=>"Id"),
-		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>10, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'searchall'=>1, 'showoncombobox'=>'1', 'comment'=>"Reference of object"),
-		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>'1', 'position'=>30, 'notnull'=>1, 'visible'=>1, 'searchall'=>1, 'css'=>'minwidth200', 'help'=>"Help text", 'showoncombobox'=>'1',),
+		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>10, 'notnull'=>1, 'visible'=>4, 'noteditable'=>'1', 'default'=>'(PROV)', 'index'=>1, 'searchall'=>1, 'showoncombobox'=>'1', 'comment'=>"Reference of object"),
+		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>'1', 'position'=>30, 'notnull'=>0, 'visible'=>1, 'searchall'=>1, 'css'=>'minwidth200', 'help'=>"Help text", 'showoncombobox'=>'1',),
 		'fk_soc' => array('type'=>'integer:Societe:societe/class/societe.class.php:1:status=1 AND entity IN (__SHARED_ENTITIES__)', 'label'=>'ThirdParty', 'enabled'=>'1', 'position'=>50, 'notnull'=>-1, 'visible'=>1, 'index'=>1, 'help'=>"LinkToThirparty",),
-		'fk_project' => array('type'=>'integer:Project:projet/class/project.class.php:1', 'label'=>'Project', 'enabled'=>'1', 'position'=>52, 'notnull'=>-1, 'visible'=>1, 'index'=>1,),
-		'description' => array('type'=>'html', 'label'=>'Description', 'enabled'=>'1', 'position'=>60, 'notnull'=>0, 'visible'=>1,),
+		'fk_project' => array('type'=>'integer:Project:projet/class/project.class.php:1', 'label'=>'Project', 'enabled'=>'1', 'position'=>52, 'notnull'=>-1, 'visible'=>-1, 'index'=>1,),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>'1', 'position'=>500, 'notnull'=>1, 'visible'=>-2,),
 		'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'enabled'=>'1', 'position'=>501, 'notnull'=>0, 'visible'=>-2,),
 		'fk_user_creat' => array('type'=>'integer:User:user/class/user.class.php', 'label'=>'UserAuthor', 'enabled'=>'1', 'position'=>510, 'notnull'=>1, 'visible'=>-2, 'foreignkey'=>'user.rowid',),
 		'fk_user_modif' => array('type'=>'integer:User:user/class/user.class.php', 'label'=>'UserModif', 'enabled'=>'1', 'position'=>511, 'notnull'=>-1, 'visible'=>-2,),
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'enabled'=>'1', 'position'=>1000, 'notnull'=>-1, 'visible'=>-2,),
+		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Valid&eacute;', '9'=>'Annul&eacute;'),),
 		'content' => array('type'=>'html', 'label'=>'Content', 'enabled'=>'1', 'position'=>62, 'notnull'=>0, 'visible'=>-1,),
 		'keywords' => array('type'=>'text', 'label'=>'Keywords', 'enabled'=>'1', 'position'=>64, 'notnull'=>0, 'visible'=>1, 'searchall'=>1,),
-		'status' => array('type'=>'integer', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Validé', '9'=>'Annulé'),),
+		'fk_type' => array('type'=>'integer:TypeDocument:notesanddocuments/class/typedocument.class.php', 'label'=>'TypeDocument', 'enabled'=>'1', 'position'=>12, 'notnull'=>0, 'visible'=>1,),
+		'model_pdf' => array('type'=>'varchar(255)', 'label'=>'PDFModel', 'enabled'=>'1', 'position'=>1010, 'notnull'=>-1, 'visible'=>0,),
+		'last_main_doc' => array('type'=>'varchar(255)', 'label'=>'LastMainDoc', 'enabled'=>'1', 'position'=>1020, 'notnull'=>-1, 'visible'=>0,),
 	);
 	public $rowid;
 	public $ref;
 	public $label;
 	public $fk_soc;
 	public $fk_project;
-	public $description;
 	public $date_creation;
 	public $tms;
 	public $fk_user_creat;
 	public $fk_user_modif;
 	public $import_key;
+	public $status;
 	public $content;
 	public $keywords;
-	public $status;
+	public $fk_type;
+	public $model_pdf;
+	public $last_main_doc;
 	// END MODULEBUILDER PROPERTIES
 
 
@@ -131,17 +135,17 @@ class Documents extends CommonObject
 	/**
 	 * @var int    Name of subtable line
 	 */
-	//public $table_element_line = 'documents_documentsline';
+	//public $table_element_line = 'notesanddocuments_documentnoteline';
 
 	/**
 	 * @var int    Field with ID of parent key if this object has a parent
 	 */
-	//public $fk_element = 'fk_documents';
+	//public $fk_element = 'fk_documentnote';
 
 	/**
 	 * @var int    Name of subtable class that manage subtable lines
 	 */
-	//public $class_element_line = 'Documentsline';
+	//public $class_element_line = 'DocumentNoteline';
 
 	/**
 	 * @var array	List of child tables. To test if we can delete object.
@@ -153,10 +157,10 @@ class Documents extends CommonObject
 	 *               If name matches '@ClassNAme:FilePathClass;ParentFkFieldName' it will
 	 *               call method deleteByParentField(parentId, ParentFkFieldName) to fetch and delete child object
 	 */
-	//protected $childtablesoncascade = array('documents_documentsdet');
+	//protected $childtablesoncascade = array('notesanddocuments_documentnotedet');
 
 	/**
-	 * @var DocumentsLine[]     Array of subtable lines
+	 * @var DocumentNoteLine[]     Array of subtable lines
 	 */
 	//public $lines = array();
 
@@ -177,7 +181,7 @@ class Documents extends CommonObject
 		if (empty($conf->multicompany->enabled) && isset($this->fields['entity'])) $this->fields['entity']['enabled'] = 0;
 
 		// Example to show how to set values of fields definition dynamically
-		/*if ($user->rights->documents->documents->read) {
+		/*if ($user->rights->notesanddocuments->documentnote->read) {
 			$this->fields['myfield']['visible'] = 1;
 			$this->fields['myfield']['noteditable'] = 0;
 		}*/
@@ -323,6 +327,11 @@ class Documents extends CommonObject
 		$result = $this->fetchCommon($id, $ref);
 		if ($result > 0 && !empty($this->table_element_line)) $this->fetchLines();
 		return $result;
+	}
+
+	public function fetch_thirdparty() {
+		if (empty($this->fk_soc)) return 1; // so we can send email
+		else return parent::fetch_thirdparty();
 	}
 
 	/**
@@ -485,8 +494,8 @@ class Documents extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->documents->write))
-		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->documents->documents_advance->validate))))
+		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->documentnote->write))
+		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->documentnote->documentnote_advance->validate))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -529,7 +538,7 @@ class Documents extends CommonObject
 			if (!$error && !$notrigger)
 			{
 				// Call trigger
-				$result = $this->call_trigger('DOCUMENTS_VALIDATE', $user);
+				$result = $this->call_trigger('DOCUMENTNOTE_VALIDATE', $user);
 				if ($result < 0) $error++;
 				// End call triggers
 			}
@@ -543,16 +552,16 @@ class Documents extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref))
 			{
 				// Now we rename also files into index
-				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'documents/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'documents/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = '/".$this->db->escape($this->newref)."'";
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = '/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) { $error++; $this->error = $this->db->lasterror(); }
 
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->documents->dir_output.'/documents/'.$oldref;
-				$dirdest = $conf->documents->dir_output.'/documents/'.$newref;
+				$dirsource = $conf->notesanddocuments->dir_output.'//'.$oldref;
+				$dirdest = $conf->notesanddocuments->dir_output.'//'.$newref;
 				if (!$error && file_exists($dirsource))
 				{
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
@@ -561,7 +570,7 @@ class Documents extends CommonObject
 					{
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->documents->dir_output.'/documents/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($conf->notesanddocuments->dir_output.'//'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry)
 						{
 							$dirsource = $fileentry['name'];
@@ -610,14 +619,14 @@ class Documents extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->write))
-		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->documents_advance->validate))))
+		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->write))
+		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->notesanddocuments_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'DOCUMENTS_UNVALIDATE');
+		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'DOCUMENTNOTE_UNVALIDATE');
 	}
 
 	/**
@@ -635,14 +644,14 @@ class Documents extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->write))
-		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->documents_advance->validate))))
+		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->write))
+		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->notesanddocuments_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'DOCUMENTS_CLOSE');
+		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'DOCUMENTNOTE_CLOSE');
 	}
 
 	/**
@@ -660,14 +669,14 @@ class Documents extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->write))
-		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->documents->documents_advance->validate))))
+		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->write))
+		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->notesanddocuments_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'DOCUMENTS_REOPEN');
+		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'DOCUMENTNOTE_REOPEN');
 	}
 
 	/**
@@ -688,14 +697,14 @@ class Documents extends CommonObject
 
 		$result = '';
 
-		$label = '<u>'.$langs->trans("Documents").'</u>';
+		$label = '<u>'.$langs->trans("DocumentNote").'</u>';
 		$label .= '<br>';
 		$label .= '<b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (isset($this->status)) {
 			$label .= '<br><b>'.$langs->trans("Status").":</b> ".$this->getLibStatut(5);
 		}
 
-		$url = dol_buildpath('/documents/documents_card.php', 1).'?id='.$this->id;
+		$url = dol_buildpath('/notesanddocuments/documentnote_card.php', 1).'?id='.$this->id;
 
 		if ($option != 'nolink')
 		{
@@ -710,7 +719,7 @@ class Documents extends CommonObject
 		{
 			if (!empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER))
 			{
-				$label = $langs->trans("ShowDocuments");
+				$label = $langs->trans("ShowDocumentNote");
 				$linkclose .= ' alt="'.dol_escape_htmltag($label, 1).'"';
 			}
 			$linkclose .= ' title="'.dol_escape_htmltag($label, 1).'"';
@@ -759,7 +768,7 @@ class Documents extends CommonObject
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action, $hookmanager;
-		$hookmanager->initHooks(array('documentsdao'));
+		$hookmanager->initHooks(array('documentnotedao'));
 		$parameters = array('id'=>$this->id, 'getnomurl'=>$result);
 		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) $result = $hookmanager->resPrint;
@@ -793,7 +802,7 @@ class Documents extends CommonObject
 		if (empty($this->labelStatus) || empty($this->labelStatusShort))
 		{
 			global $langs;
-			//$langs->load("documents@documents");
+			//$langs->load("notesanddocuments@notesanddocuments");
 			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Draft');
 			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Enabled');
 			$this->labelStatus[self::STATUS_CANCELED] = $langs->trans('Disabled');
@@ -882,8 +891,8 @@ class Documents extends CommonObject
 	{
 		$this->lines = array();
 
-		$objectline = new DocumentsLine($this->db);
-		$result = $objectline->fetchAll('ASC', 'position', 0, 0, array('customsql'=>'fk_documents = '.$this->id));
+		$objectline = new DocumentNoteLine($this->db);
+		$result = $objectline->fetchAll('ASC', 'position', 0, 0, array('customsql'=>'fk_documentnote = '.$this->id));
 
 		if (is_numeric($result))
 		{
@@ -906,24 +915,24 @@ class Documents extends CommonObject
 	public function getNextNumRef()
 	{
 		global $langs, $conf;
-		$langs->load("documents@documents");
+		$langs->load("notesanddocuments@notesanddocuments");
 
-		if (empty($conf->global->DOCUMENTS_DOCUMENTS_ADDON)) {
-			$conf->global->DOCUMENTS_DOCUMENTS_ADDON = 'mod_documents_standard';
+		if (empty($conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON)) {
+			$conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON = 'mod_documentnote_standard';
 		}
 
-		if (!empty($conf->global->DOCUMENTS_DOCUMENTS_ADDON))
+		if (!empty($conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON))
 		{
 			$mybool = false;
 
-			$file = $conf->global->DOCUMENTS_DOCUMENTS_ADDON.".php";
-			$classname = $conf->global->DOCUMENTS_DOCUMENTS_ADDON;
+			$file = $conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON.".php";
+			$classname = $conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON;
 
 			// Include file with class
 			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 			foreach ($dirmodels as $reldir)
 			{
-				$dir = dol_buildpath($reldir."core/modules/documents/");
+				$dir = dol_buildpath($reldir."core/modules/notesanddocuments/");
 
 				// Load file with numbering class (if found)
 				$mybool |= @include_once $dir.$file;
@@ -977,21 +986,21 @@ class Documents extends CommonObject
 		global $conf, $langs;
 
 		$result = 0;
-		$includedocgeneration = 0;
+		$includedocgeneration = 1;
 
-		$langs->load("documents@documents");
+		$langs->load("notesanddocuments@notesanddocuments");
 
 		if (!dol_strlen($modele)) {
-			$modele = 'standard_documents';
+			$modele = 'standard_documentnote';
 
 			if ($this->modelpdf) {
 				$modele = $this->modelpdf;
-			} elseif (!empty($conf->global->DOCUMENTS_ADDON_PDF)) {
-				$modele = $conf->global->DOCUMENTS_ADDON_PDF;
+			} elseif (!empty($conf->global->DOCUMENTNOTE_ADDON_PDF)) {
+				$modele = $conf->global->DOCUMENTNOTE_ADDON_PDF;
 			}
 		}
 
-		$modelpath = "core/modules/documents/doc/";
+		$modelpath = "core/modules/notesanddocuments/doc/";
 
 		if ($includedocgeneration) {
 			$result = $this->commonGenerateDocument($modelpath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref, $moreparams);
@@ -1032,12 +1041,12 @@ class Documents extends CommonObject
 }
 
 /**
- * Class DocumentsLine. You can also remove this and generate a CRUD class for lines objects.
+ * Class DocumentNoteLine. You can also remove this and generate a CRUD class for lines objects.
  */
-class DocumentsLine
+class DocumentNoteLine
 {
-	// To complete with content of an object DocumentsLine
-	// We should have a field rowid, fk_documents and position
+	// To complete with content of an object DocumentNoteLine
+	// We should have a field rowid, fk_documentnote and position
 
 	/**
 	 * @var int  Does object support extrafields ? 0=No, 1=Yes
@@ -1053,6 +1062,4 @@ class DocumentsLine
 	{
 		$this->db = $db;
 	}
-
-	
 }
