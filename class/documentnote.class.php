@@ -329,9 +329,9 @@ class DocumentNote extends CommonObject
 		return $result;
 	}
 
-	public function fetch_thirdparty() {
+	public function fetch_thirdparty($force_thirdparty_id = 0) {
 		if (empty($this->fk_soc)) return 1; // so we can send email
-		else return parent::fetch_thirdparty();
+		else return parent::fetch_thirdparty($force_thirdparty_id);
 	}
 
 	/**
