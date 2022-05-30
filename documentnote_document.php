@@ -86,6 +86,8 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 //$result = restrictedArea($user, 'notesanddocuments', $object->id);
 
 $permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+if (!$permissiontoread) accessforbidden();
 
 
 

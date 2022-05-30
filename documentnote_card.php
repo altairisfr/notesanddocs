@@ -112,12 +112,12 @@ $upload_dir = $conf->notesanddocuments->multidir_output[isset($object->entity) ?
 $usercansend = (empty($conf->global->MAIN_USE_ADVANCED_PERMS) || $user->rights->notesanddocuments->documentnote->send);
 
 // Security check - Protection if external user
-//if ($user->socid > 0) accessforbidden();
+if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->statut == $object::STATUS_DRAFT) ? 1 : 0);
 //$result = restrictedArea($user, 'notesanddocuments', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
 
-//if (!$permissiontoread) accessforbidden();
+if (!$permissiontoread) accessforbidden();
 
 
 /*
@@ -469,7 +469,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (empty($reshook))
 		{
 			// Send
-			if (empty($user->socid)) {
+			if (empty($user->socid) && $usercansend) {
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>'."\n";
 			}
 
