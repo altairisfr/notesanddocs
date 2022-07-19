@@ -235,7 +235,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 			if (!is_object($object))
 			{
 				$id = $object;
-				$object = new Commande($this->db);
+				$object = new NotesAndDocuments($this->db);
 				$result = $object->fetch($id);
 				if ($result < 0)
 				{
@@ -315,13 +315,14 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 				}
 
 				// Make substitution
-				$substitutionarray = array(
-				'__FROM_NAME__' => $this->emetteur->name,
-				'__FROM_EMAIL__' => $this->emetteur->email,
-				'__TOTAL_TTC__' => $object->total_ttc,
-				'__TOTAL_HT__' => $object->total_ht,
-				'__TOTAL_VAT__' => $object->total_vat
-				);
+				// MJ
+				// $substitutionarray = array(
+				// '__FROM_NAME__' => $this->emetteur->name,
+				// '__FROM_EMAIL__' => $this->emetteur->email,
+				// '__TOTAL_TTC__' => $object->total_ttc,
+				// '__TOTAL_HT__' => $object->total_ht,
+				// '__TOTAL_VAT__' => $object->total_vat
+				// );
 				complete_substitutions_array($substitutionarray, $langs, $object);
 				// Call the ODTSubstitution hook
 				$parameters = array('file'=>$file, 'object'=>$object, 'outputlangs'=>$outputlangs, 'substitutionarray'=>&$substitutionarray);
@@ -329,7 +330,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 
 				// Line of free text
 				$newfreetext = '';
-				$paramfreetext = 'ORDER_FREE_TEXT';
+				$paramfreetext = 'NOTESANDDOCUMENTS_FREE_TEXT';
 				if (!empty($conf->global->$paramfreetext))
 				{
 					$newfreetext = make_substitutions($conf->global->$paramfreetext, $substitutionarray);

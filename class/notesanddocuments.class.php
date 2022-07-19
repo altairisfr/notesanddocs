@@ -56,7 +56,7 @@ class NotesAndDocuments extends CommonObject
 	/**
 	 * @var string String with name of icon for notesanddocuments. Must be the part after the 'object_' into object_notesanddocuments.png
 	 */
-	public $picto = 'notesanddocuments@notesanddocuments';
+	public $picto = 'donation';
 
 
 	const STATUS_DRAFT = 0;
@@ -327,6 +327,11 @@ class NotesAndDocuments extends CommonObject
 		$result = $this->fetchCommon($id, $ref);
 		if ($result > 0 && !empty($this->table_element_line)) $this->fetchLines();
 		return $result;
+	}
+
+	public function fetch_thirdparty($force_thirdparty_id = 0) {
+		if (empty($this->fk_soc)) return 1; // so we can send email
+		else return parent::fetch_thirdparty($force_thirdparty_id);
 	}
 
 	/**
@@ -878,31 +883,6 @@ class NotesAndDocuments extends CommonObject
 	}
 
 	/**
-	 * 	Create an array of lines
-	 *
-	 * 	@return array|int		array of lines if OK, <0 if KO
-	 */
-	public function getLinesArray()
-	{
-		$this->lines = array();
-
-		$objectline = new NotesAndDocumentsLine($this->db);
-		$result = $objectline->fetchAll('ASC', 'position', 0, 0, array('customsql'=>'fk_notesanddocuments = '.$this->id));
-
-		if (is_numeric($result))
-		{
-			$this->error = $this->error;
-			$this->errors = $this->errors;
-			return $result;
-		}
-		else
-		{
-			$this->lines = $result;
-			return $this->lines;
-		}
-	}
-
-	/**
 	 *  Returns the reference to the following non used object depending on the active numbering module.
 	 *
 	 *  @return string      		Object free reference
@@ -1032,29 +1012,5 @@ class NotesAndDocuments extends CommonObject
 		$this->db->commit();
 
 		return $error;
-	}
-}
-
-/**
- * Class NotesAndDocumentsLine. You can also remove this and generate a CRUD class for lines objects.
- */
-class NotesAndDocumentsLine
-{
-	// To complete with content of an object NotesAndDocumentsLine
-	// We should have a field rowid, fk_notesanddocuments and position
-
-	/**
-	 * @var int  Does object support extrafields ? 0=No, 1=Yes
-	 */
-	public $isextrafieldmanaged = 0;
-
-	/**
-	 * Constructor
-	 *
-	 * @param DoliDb $db Database handler
-	 */
-	public function __construct(DoliDB $db)
-	{
-		$this->db = $db;
 	}
 }

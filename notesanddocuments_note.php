@@ -67,8 +67,8 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity]."/".$object->id;
 
-$permissionnote = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_setnotes.inc.php
-$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissionnote = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_setnotes.inc.php
+$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
 
 
 
@@ -87,7 +87,7 @@ $form = new Form($db);
 
 //$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
 $help_url = '';
-llxHeader('', $langs->trans('NotesAndDocuments'), $help_url);
+llxHeader('', $langs->trans('DocumentNote'), $help_url);
 
 if ($id > 0 || !empty($ref))
 {
@@ -95,7 +95,7 @@ if ($id > 0 || !empty($ref))
 
 	$head = notesanddocumentsPrepareHead($object);
 
-	dol_fiche_head($head, 'note', $langs->trans("NotesAndDocuments"), -1, $object->picto);
+	dol_fiche_head($head, 'note', $langs->trans("DocumentNote"), -1, $object->picto);
 
 	// Object card
 	// ------------------------------------------------------------

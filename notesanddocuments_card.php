@@ -102,20 +102,21 @@ if (empty($action) && empty($id) && empty($ref)) $action = 'view';
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once.
 
 
-$permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
-$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->rights->notesanddocuments->notesanddocuments->delete || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$permissionnote = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_setnotes.inc.php
-$permissiondellink = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_dellink.inc.php
+$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->rights->notesanddocuments->documentnote->delete || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionnote = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_setnotes.inc.php
+$permissiondellink = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_dellink.inc.php
 $upload_dir = $conf->notesanddocuments->multidir_output[isset($object->entity) ? $object->entity : 1];
+$usercansend = (empty($conf->global->MAIN_USE_ADVANCED_PERMS) || $user->rights->notesanddocuments->documentnote->send);
 
 // Security check - Protection if external user
-//if ($user->socid > 0) accessforbidden();
+if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->statut == $object::STATUS_DRAFT) ? 1 : 0);
 //$result = restrictedArea($user, 'notesanddocuments', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
 
-//if (!$permissiontoread) accessforbidden();
+if (!$permissiontoread) accessforbidden();
 
 
 /*
@@ -166,6 +167,7 @@ if (empty($reshook))
 
 	// Actions to send emails
 	$triggersendname = 'NOTESANDDOCUMENTS_SENTBYMAIL';
+	$paramname = 'id';
 	$autocopy = 'MAIN_MAIL_AUTOCOPY_NOTESANDDOCUMENTS_TO';
 	$trackid = 'notesanddocuments'.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
@@ -184,7 +186,7 @@ $form = new Form($db);
 $formfile = new FormFile($db);
 $formproject = new FormProjets($db);
 
-$title = $langs->trans("NotesAndDocuments");
+$title = $langs->trans("DocumentNote2");
 $help_url = '';
 llxHeader('', $title, $help_url);
 
@@ -207,7 +209,7 @@ jQuery(document).ready(function() {
 // Part to create
 if ($action == 'create')
 {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("NotesAndDocuments")), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("DocumentNote2")), '', 'object_'.$object->picto);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -221,9 +223,7 @@ if ($action == 'create')
 	//if (! GETPOSTISSET('fieldname')) $_POST['fieldname'] = 'myvalue';
 
 	print '<table class="border centpercent tableforfieldcreate">'."\n";
-
-	// Common attributes
-	include DOL_DOCUMENT_ROOT.'/core/tpl/commonfields_add.tpl.php';
+	print'<td>* Séparer les <strong>mots clés</strong> par une virgule</td>';
 
 	// Other attributes
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_add.tpl.php';
@@ -246,7 +246,7 @@ if ($action == 'create')
 // Part to edit record
 if (($id || $ref) && $action == 'edit')
 {
-	print load_fiche_titre($langs->trans("NotesAndDocuments"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("DocumentNote2"), '', 'object_'.$object->picto);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -282,14 +282,14 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = notesanddocumentsPrepareHead($object);
-	dol_fiche_head($head, 'card', $langs->trans("NotesAndDocuments"), -1, $object->picto);
+	dol_fiche_head($head, 'card', $langs->trans("DocumentNote"), -1, $object->picto);
 
 	$formconfirm = '';
 
 	// Confirmation to delete
 	if ($action == 'delete')
 	{
-		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('DeleteNotesAndDocuments'), $langs->trans('ConfirmDeleteObject'), 'confirm_delete', '', 0, 1);
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('DeleteDocumentNote'), $langs->trans('ConfirmDeleteObject'), 'confirm_delete', '', 0, 1);
 	}
 	// Confirmation to delete line
 	if ($action == 'deleteline')
@@ -403,55 +403,55 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	/*
 	 * Lines
 	 */
+// MJ
+	// if (!empty($object->table_element_line))
+	// {
+	// 	// Show object lines
+	// 	$result = $object->getLinesArray();
 
-	if (!empty($object->table_element_line))
-	{
-		// Show object lines
-		$result = $object->getLinesArray();
+	// 	print '	<form name="addproduct" id="addproduct" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.(($action != 'editline') ? '#addline' : '#line_'.GETPOST('lineid', 'int')).'" method="POST">
+	// 	<input type="hidden" name="token" value="' . newToken().'">
+	// 	<input type="hidden" name="action" value="' . (($action != 'editline') ? 'addline' : 'updateline').'">
+	// 	<input type="hidden" name="mode" value="">
+	// 	<input type="hidden" name="id" value="' . $object->id.'">
+	// 	';
 
-		print '	<form name="addproduct" id="addproduct" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.(($action != 'editline') ? '#addline' : '#line_'.GETPOST('lineid', 'int')).'" method="POST">
-		<input type="hidden" name="token" value="' . newToken().'">
-		<input type="hidden" name="action" value="' . (($action != 'editline') ? 'addline' : 'updateline').'">
-		<input type="hidden" name="mode" value="">
-		<input type="hidden" name="id" value="' . $object->id.'">
-		';
+	// 	if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+	// 		include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
+	// 	}
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
-			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
-		}
+	// 	print '<div class="div-table-responsive-no-min">';
+	// 	if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline'))
+	// 	{
+	// 		print '<table id="tablelines" class="noborder noshadow" width="100%">';
+	// 	}
 
-		print '<div class="div-table-responsive-no-min">';
-		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline'))
-		{
-			print '<table id="tablelines" class="noborder noshadow" width="100%">';
-		}
+	// 	if (!empty($object->lines))
+	// 	{
+	// 		$object->printObjectLines($action, $mysoc, null, GETPOST('lineid', 'int'), 1);
+	// 	}
 
-		if (!empty($object->lines))
-		{
-			$object->printObjectLines($action, $mysoc, null, GETPOST('lineid', 'int'), 1);
-		}
+	// 	// Form to add new line
+	// 	if ($object->status == 0 && $permissiontoadd && $action != 'selectlines')
+	// 	{
+	// 		if ($action != 'editline')
+	// 		{
+	// 			// Add products/services form
+	// 			$object->formAddObjectLine(1, $mysoc, $soc);
 
-		// Form to add new line
-		if ($object->status == 0 && $permissiontoadd && $action != 'selectlines')
-		{
-			if ($action != 'editline')
-			{
-				// Add products/services form
-				$object->formAddObjectLine(1, $mysoc, $soc);
+	// 			$parameters = array();
+	// 			$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	// 		}
+	// 	}
 
-				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			}
-		}
+	// 	if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline'))
+	// 	{
+	// 		print '</table>';
+	// 	}
+	// 	print '</div>';
 
-		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline'))
-		{
-			print '</table>';
-		}
-		print '</div>';
-
-		print "</form>\n";
-	}
+	// 	print "</form>\n";
+	// }
 
 
 	// Buttons for actions
@@ -565,11 +565,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		// Documents
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
-			$relativepath = $objref . '/' . $objref . '.pdf';
+			// MJ // $relativepath = $objref . '/' . $objref . '.pdf';
 			$filedir = $conf->notesanddocuments->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"] . "?id=" . $object->id;
-			$genallowed = $user->rights->notesanddocuments->notesanddocuments->read;	// If you can read, you can build the PDF to read content
-			$delallowed = $user->rights->notesanddocuments->notesanddocuments->write;	// If you can create/edit, you can remove a file on card
+			$genallowed = $user->rights->notesanddocuments->documentnote->read;	// If you can read, you can build the PDF to read content
+			$delallowed = $user->rights->notesanddocuments->documentnote->write;	// If you can create/edit, you can remove a file on card
 			print $formfile->showdocuments('notesanddocuments:NotesAndDocuments', $object->element.'/'.$objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $langs->defaultlang);
 		}
 

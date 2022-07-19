@@ -85,8 +85,8 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'notesanddocuments', $object->id);
 
-$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
-
+$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
 
 
 /*
@@ -102,7 +102,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 
 $form = new Form($db);
 
-$title = $langs->trans("NotesAndDocuments").' - '.$langs->trans("Files");
+$title = $langs->trans("DocumentNote").' - '.$langs->trans("Files");
 $help_url = '';
 //$help_url='EN:Module_Third_Parties|FR:Module_Tiers|ES:Empresas';
 llxHeader('', $title, $help_url);
@@ -114,7 +114,7 @@ if ($object->id)
 	 */
 	$head = notesanddocumentsPrepareHead($object);
 
-	dol_fiche_head($head, 'document', $langs->trans("NotesAndDocuments"), -1, $object->picto);
+	dol_fiche_head($head, 'document', $langs->trans("DocumentNote"), -1, $object->picto);
 
 
 	// Build file list

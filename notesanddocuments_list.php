@@ -148,9 +148,9 @@ if (is_array($extrafields->attributes[$object->table_element]['label']) && count
 $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
-$permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
-$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write;
-$permissiontodelete = $user->rights->notesanddocuments->notesanddocuments->delete;
+$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+$permissiontoadd = $user->rights->notesanddocuments->documentnote->write;
+$permissiontodelete = $user->rights->notesanddocuments->documentnote->delete;
 
 // Security check
 if (empty($conf->notesanddocuments->enabled)) accessforbidden('Module not enabled');
@@ -216,7 +216,7 @@ $now = dol_now();
 
 //$help_url="EN:Module_NotesAndDocuments|FR:Module_NotesAndDocuments_FR|ES:Módulo_NotesAndDocuments";
 $help_url = '';
-$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("NotesAndDocumentss"));
+$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("DocumentNotes"));
 
 
 // Build and execute select
