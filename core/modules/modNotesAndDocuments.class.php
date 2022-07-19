@@ -260,22 +260,22 @@ class modNotesAndDocuments extends DolibarrModules
 		/* BEGIN MODULEBUILDER PERMISSIONS */
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Send NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'send'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		/* END MODULEBUILDER PERMISSIONS */
@@ -294,8 +294,8 @@ class modNotesAndDocuments extends DolibarrModules
 			'url'=>'/notesanddocuments/documentnote_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read', // Use 'perms'=>'$user->rights->notesanddocuments->documentnote->read' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read', // Use 'perms'=>'$user->rights->notesanddocuments->documentnote->read' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0, // 0=Menu for internal users, 1=external users, 2=both
 		);
@@ -310,8 +310,8 @@ class modNotesAndDocuments extends DolibarrModules
 			'url'=>'/notesanddocuments/documentnote_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
@@ -338,8 +338,8 @@ class modNotesAndDocuments extends DolibarrModules
 			'url'=>'/notesanddocuments/documentnote_card.php?action=create',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->write',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->write',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->write',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->write',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);

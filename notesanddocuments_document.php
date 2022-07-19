@@ -85,8 +85,8 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'notesanddocuments', $object->id);
 
-$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
-$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
 
 
 /*
