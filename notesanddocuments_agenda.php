@@ -95,6 +95,8 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 
 $permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
 $permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
+if (!$permissiontoread) accessforbidden();
+
 
 /*
  *  Actions
@@ -140,7 +142,7 @@ if ($object->id > 0)
 	$head = notesanddocumentsPrepareHead($object);
 
 
-	dol_fiche_head($head, 'agenda', $langs->trans("NotesAndDocuments"), -1, 'object_'.$object->picto);
+	dol_fiche_head($head, 'agenda', $langs->trans("DocumentNote"), -1, 'object_'.$object->picto);
 
 	// Object card
 	// ------------------------------------------------------------

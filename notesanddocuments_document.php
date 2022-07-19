@@ -78,7 +78,10 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 
 //if ($id > 0 || ! empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity?$object->entity:$conf->entity] . "/notesanddocuments/" . dol_sanitizeFileName($object->id);
-if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity ? $object->entity : $conf->entity]."/notesanddocuments/".dol_sanitizeFileName($object->ref);
+// MJ
+// if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity ? $object->entity : $conf->entity]."/notesanddocuments/".dol_sanitizeFileName($object->ref);
+if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".dol_sanitizeFileName($object->ref);
+
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -87,6 +90,7 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 
 $permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
 $permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
+if (!$permissiontoread) accessforbidden();
 
 
 /*
@@ -196,7 +200,9 @@ if ($object->id)
 	$param = '&id='.$object->id;
 
 	//$relativepathwithnofile='notesanddocuments/' . dol_sanitizeFileName($object->id).'/';
-	$relativepathwithnofile = 'notesanddocuments/'.dol_sanitizeFileName($object->ref).'/';
+	// MJ
+	// $relativepathwithnofile = 'notesanddocuments/'.dol_sanitizeFileName($object->ref).'/';
+	$relativepathwithnofile = '/'.dol_sanitizeFileName($object->ref).'/';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 }
