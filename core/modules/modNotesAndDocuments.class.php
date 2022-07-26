@@ -291,7 +291,7 @@ class modNotesAndDocuments extends DolibarrModules
 			'titre'=>'ModuleNotesAndDocumentsName',
 			'mainmenu'=>'notesanddocuments',
 			'leftmenu'=>'',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'url'=>'/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
 			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
@@ -306,8 +306,8 @@ class modNotesAndDocuments extends DolibarrModules
 			'type'=>'left',                          // This is a Top menu entry
 			'titre'=>'DocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'documentnote',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'leftmenu'=>'notesanddocuments',
+			'url'=>'/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
 			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
@@ -316,26 +316,26 @@ class modNotesAndDocuments extends DolibarrModules
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
 		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=documentnote',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',			                // This is a Left menu entry
 			'titre'=>'ListDocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'notesanddocuments_documentnote_list',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'leftmenu'=>'notesanddocuments_notesanddocuments_list',
+			'url'=>'/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
 		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=documentnote',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',			                // This is a Left menu entry
 			'titre'=>'NewDocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'notesanddocuments_documentnote_new',
-			'url'=>'/notesanddocuments/documentnote_card.php?action=create',
+			'leftmenu'=>'notesanddocuments_notesanddocuments_new',
+			'url'=>'/notesanddocuments/notesanddocuments_card.php?action=create',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
 			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->write',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
@@ -352,7 +352,7 @@ class modNotesAndDocuments extends DolibarrModules
             'titre'=>'List DocumentNote',
             'mainmenu'=>'notesanddocuments',
             'leftmenu'=>'notesanddocuments_documentnote',
-            'url'=>'/notesanddocuments/documentnote_list.php',
+            'url'=>'/notesanddocuments/notesanddocuments_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
             'position'=>1100+$r,
@@ -372,7 +372,7 @@ class modNotesAndDocuments extends DolibarrModules
             'titre'=>'New DocumentNote',
             'mainmenu'=>'notesanddocuments',
             'leftmenu'=>'notesanddocuments_documentnote',
-            'url'=>'/notesanddocuments/documentnote_card.php?action=create',
+            'url'=>'/notesanddocuments/notesanddocuments_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
             'position'=>1100+$r,
@@ -471,14 +471,14 @@ class modNotesAndDocuments extends DolibarrModules
 		// Document templates
 		$moduledir = 'notesanddocuments';
 		$myTmpObjects = array();
-		$myTmpObjects['DocumentNote']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
+		$myTmpObjects['NotesAndDocuments']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
 
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
-			if ($myTmpObjectKey == 'DocumentNote') continue;
+			if ($myTmpObjectKey == 'NotesAndDocuments') continue;
 			if ($myTmpObjectArray['includerefgeneration']) {
-				$src=DOL_DOCUMENT_ROOT.'/install/doctemplates/notesanddocuments/template_documentnotes.odt';
+				$src=DOL_DOCUMENT_ROOT.'/install/doctemplates/notesanddocuments/template_notesanddocuments.odt';
 				$dirodt=DOL_DATA_ROOT.'/doctemplates/notesanddocuments';
-				$dest=$dirodt.'/template_documentnotes.odt';
+				$dest=$dirodt.'/template_notesanddocuments.odt';
 
 				if (file_exists($src) && ! file_exists($dest))
 				{

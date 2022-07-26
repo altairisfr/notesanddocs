@@ -89,9 +89,9 @@ class ActionsNotesAndDocuments
 
 		$search_boxvalue = $parameters['search_boxvalue'];
 
-		if (((! empty($conf->notesanddocuments->enabled) && $user->rights->notesanddocuments->documentnote->read)))
+		if (((! empty($conf->notesanddocuments->enabled) && $user->rights->notesanddocuments->notesanddocuments->read)))
 		{
-			$this->results['searchintodocuments']=array('position'=>1400151, 'img'=>'object_order', 'label'=>$langs->trans("NotesAndDocuments", $search_boxvalue),'text'=>img_picto('', 'object_order').' '.$langs->trans("NotesAndDocuments", $search_boxvalue), 'url'=>dol_buildpath('/notesanddocuments/documentnote_list.php',1).'?notesanddocuments=1'.($search_boxvalue?'&sall='.urlencode($search_boxvalue):''));
+			$this->results['searchintodocuments']=array('position'=>1400151, 'img'=>'object_order', 'label'=>$langs->trans("NotesAndDocuments", $search_boxvalue),'text'=>img_picto('', 'object_order').' '.$langs->trans("NotesAndDocuments", $search_boxvalue), 'url'=>dol_buildpath('/notesanddocuments/notesanddocuments_list.php',1).'?notesanddocuments=1'.($search_boxvalue?'&sall='.urlencode($search_boxvalue):''));
 		}
 
 		return 0;
@@ -100,7 +100,7 @@ class ActionsNotesAndDocuments
 
 	function emailElementlist($parameters) {
 		global $conf, $user, $langs;
-		$this->results['documentnote'] = $langs->trans("DocumentNotes");
+		$this->results['notesanddocuments'] = $langs->trans("DocumentNotes");
 		return;
 	}
 
