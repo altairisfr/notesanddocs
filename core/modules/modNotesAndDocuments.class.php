@@ -236,8 +236,8 @@ class modNotesAndDocuments extends DolibarrModules
 			//  0 => array(
 			//      'label' => 'MyJob label',
 			//      'jobtype' => 'method',
-			//      'class' => '/notesanddocuments/class/documentnote.class.php',
-			//      'objectname' => 'DocumentNote',
+			//      'class' => '/notesanddocuments/class/notesanddocuments_note.class.php',
+			//      'objectname' => 'NotesAndDocuments',
 			//      'method' => 'doScheduledJob',
 			//      'parameters' => '',
 			//      'comment' => 'Comment',
@@ -295,12 +295,12 @@ class modNotesAndDocuments extends DolibarrModules
 			'langs'=>'notesanddocuments@notesanddocuments', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
 			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read', // Use 'perms'=>'$user->rights->notesanddocuments->documentnote->read' if you want your menu with a permission rules
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read', // Use 'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0, // 0=Menu for internal users, 1=external users, 2=both
 		);
 		/* END MODULEBUILDER TOPMENU */
-		/* BEGIN MODULEBUILDER LEFTMENU DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER LEFTMENU NOTESANDDOCUMENTS */
 		$this->menu[$r++]=array(
 			'fk_menu'=>'fk_mainmenu=notesanddocuments',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',                          // This is a Top menu entry
@@ -351,7 +351,7 @@ class modNotesAndDocuments extends DolibarrModules
             'type'=>'left',
             'titre'=>'List DocumentNote',
             'mainmenu'=>'notesanddocuments',
-            'leftmenu'=>'notesanddocuments_documentnote',
+            'leftmenu'=>'notesanddocuments_notesanddocuments',
             'url'=>'/notesanddocuments/notesanddocuments_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
@@ -366,12 +366,12 @@ class modNotesAndDocuments extends DolibarrModules
         );
         $this->menu[$r++]=array(
             // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-            'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments_documentnote',
+            'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments_notesanddocuments',
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'New DocumentNote',
             'mainmenu'=>'notesanddocuments',
-            'leftmenu'=>'notesanddocuments_documentnote',
+            'leftmenu'=>'notesanddocuments_notesanddocuments',
             'url'=>'/notesanddocuments/notesanddocuments_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
@@ -385,58 +385,58 @@ class modNotesAndDocuments extends DolibarrModules
             'user'=>2
         );
 
-		/* END MODULEBUILDER LEFTMENU DOCUMENTNOTE */
+		/* END MODULEBUILDER LEFTMENU NOTESANDDOCUMENTS */
 
 		// Exports profiles provided by this module
 		$r = 1;
-		/* BEGIN MODULEBUILDER EXPORT DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER EXPORT NOTESANDDOCUMENTS */
 		/*
 		$langs->load("notesanddocuments@notesanddocuments");
 		$this->export_code[$r]=$this->rights_class.'_'.$r;
-		$this->export_label[$r]='DocumentNoteLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->export_icon[$r]='documentnote@notesanddocuments';
+		$this->export_label[$r]='NotesAndDocumentsLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		$this->export_icon[$r]='notesanddocuments@notesanddocuments';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
-		$keyforclass = 'DocumentNote'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnote@notesanddocuments';
+		$keyforclass = 'NotesAndDocuments'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocuments@notesanddocuments';
 		include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
 		//$this->export_fields_array[$r]['t.fieldtoadd']='FieldToAdd'; $this->export_TypeFields_array[$r]['t.fieldtoadd']='Text';
 		//unset($this->export_fields_array[$r]['t.fieldtoremove']);
-		//$keyforclass = 'DocumentNoteLine'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnoteline@notesanddocuments'; $keyforalias='tl';
+		//$keyforclass = 'NotesAndDocumentsLine'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocumentsline@notesanddocuments'; $keyforalias='tl';
 		//include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
-		$keyforselect='documentnote'; $keyforaliasextra='extra'; $keyforelement='documentnote@notesanddocuments';
+		$keyforselect='notesanddocuments'; $keyforaliasextra='extra'; $keyforelement='notesanddocuments@notesanddocuments';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		//$keyforselect='documentnoteline'; $keyforaliasextra='extraline'; $keyforelement='documentnoteline@notesanddocuments';
+		//$keyforselect='notesanddocumentsline'; $keyforaliasextra='extraline'; $keyforelement='notesanddocumentsline@notesanddocuments';
 		//include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		//$this->export_dependencies_array[$r] = array('documentnoteline'=>array('tl.rowid','tl.ref')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
+		//$this->export_dependencies_array[$r] = array('notesanddocumentsline'=>array('tl.rowid','tl.ref')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
 		//$this->export_special_array[$r] = array('t.field'=>'...');
 		//$this->export_examplevalues_array[$r] = array('t.field'=>'Example');
 		//$this->export_help_array[$r] = array('t.field'=>'FieldDescHelp');
 		$this->export_sql_start[$r]='SELECT DISTINCT ';
-		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'documentnote as t';
-		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'documentnote_line as tl ON tl.fk_documentnote = t.rowid';
+		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'notesanddocuments as t';
+		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'notesanddocuments_line as tl ON tl.fk_notesanddocuments = t.rowid';
 		$this->export_sql_end[$r] .=' WHERE 1 = 1';
-		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('documentnote').')';
+		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('notesanddocuments').')';
 		$r++; */
-		/* END MODULEBUILDER EXPORT DOCUMENTNOTE */
+		/* END MODULEBUILDER EXPORT NOTESANDDOCUMENTS */
 
 		// Imports profiles provided by this module
 		$r = 1;
-		/* BEGIN MODULEBUILDER IMPORT DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER IMPORT NOTESANDDOCUMENTS */
 		/*
 		 $langs->load("notesanddocuments@notesanddocuments");
 		 $this->export_code[$r]=$this->rights_class.'_'.$r;
-		 $this->export_label[$r]='DocumentNoteLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		 $this->export_icon[$r]='documentnote@notesanddocuments';
-		 $keyforclass = 'DocumentNote'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnote@notesanddocuments';
+		 $this->export_label[$r]='NotesAndDocumentsLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		 $this->export_icon[$r]='notesanddocuments@notesanddocuments';
+		 $keyforclass = 'NotesAndDocuments'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocuments@notesanddocuments';
 		 include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
-		 $keyforselect='documentnote'; $keyforaliasextra='extra'; $keyforelement='documentnote@notesanddocuments';
+		 $keyforselect='notesanddocuments'; $keyforaliasextra='extra'; $keyforelement='notesanddocuments@notesanddocuments';
 		 include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
 		 //$this->export_dependencies_array[$r]=array('mysubobject'=>'ts.rowid', 't.myfield'=>array('t.myfield2','t.myfield3')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
 		 $this->export_sql_start[$r]='SELECT DISTINCT ';
-		 $this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'documentnote as t';
+		 $this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'notesanddocuments as t';
 		 $this->export_sql_end[$r] .=' WHERE 1 = 1';
-		 $this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('documentnote').')';
+		 $this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('notesanddocuments').')';
 		 $r++; */
-		/* END MODULEBUILDER IMPORT DOCUMENTNOTE */
+		/* END MODULEBUILDER IMPORT NOTESANDDOCUMENTS */
 	}
 
 	/**
