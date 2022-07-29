@@ -73,7 +73,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 		$this->db = $db;
 		$this->name = "ODT templates";
 		$this->description = $langs->trans("DocumentModelOdt");
-		$this->scandir = 'NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH'; // Name of constant that is used to save list of directories to scan
+		$this->scandir = 'NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH'; // Name of constant that is used to save list of directories to scan
 
 		// Page size for A4 format
 		$this->type = 'odt';
@@ -121,13 +121,13 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 		$texte .= '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 		$texte .= '<input type="hidden" name="token" value="'.newToken().'">';
 		$texte .= '<input type="hidden" name="action" value="setModuleOptions">';
-		$texte .= '<input type="hidden" name="param1" value="NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH">';
+		$texte .= '<input type="hidden" name="param1" value="NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH">';
 		$texte .= '<table class="nobordernopadding" width="100%">';
 
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key=>$tmpdir)
 		{
@@ -151,7 +151,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 		$texte .= $form->textwithpicto($texttitle, $texthelp, 1, 'help', '', 1);
 		$texte .= '<div><div style="display: inline-block; min-width: 100px; vertical-align: middle;">';
 		$texte .= '<textarea class="flat" cols="60" name="value1">';
-		$texte .= $conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH;
+		$texte .= $conf->global->NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH;
 		$texte .= '</textarea>';
 		$texte .= '</div><div style="display: inline-block; vertical-align: middle;">';
 		$texte .= '<input type="submit" class="button" value="'.$langs->trans("Modify").'" name="Button">';
@@ -159,7 +159,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 
 		// Scan directories
 		$nbofiles = count($listoffiles);
-		if (!empty($conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH))
+		if (!empty($conf->global->NOTESANDDOCUMENTS_ADDON_PDF_ODT_PATH))
 		{
 			$texte .= $langs->trans("NumberOfModelFilesFound").': <b>';
 			//$texte.=$nbofiles?'<a id="a_'.get_class($this).'" href="#">':'';
@@ -195,7 +195,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 	/**
 	 *  Function to build a document on disk using the generic odt module.
 	 *
-	 *	@param		Commande	$object				Object source to build document
+	 *	@param		NotesAndDocuments	$object				Object source to build document
 	 *	@param		Translate	$outputlangs		Lang output object
 	 * 	@param		string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param		int			$hidedetails		Do not show line details
@@ -229,7 +229,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->commande->dir_output)
+		if ($conf->notesanddocuments->dir_output)
 		{
 			// If $object is id instead of object
 			if (!is_object($object))
@@ -244,7 +244,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 				}
 			}
 
-			$dir = $conf->commande->multidir_output[isset($object->entity) ? $object->entity : 1];
+			$dir = $conf->notesanddocuments->multidir_output[isset($object->entity) ? $object->entity : 1];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) $dir .= "/".$objectref;
 			$file = $dir."/".$objectref.".odt";
@@ -342,7 +342,7 @@ class doc_generic_notesanddocuments_odt extends ModelePDFNotesAndDocuments
 					$odfHandler = new odf(
 						$srctemplatepath,
 						array(
-						'PATH_TO_TMP'	  => $conf->commande->dir_temp,
+						'PATH_TO_TMP'	  => $conf->notesanddocuments->dir_temp,
 						'ZIP_PROXY'		  => 'PclZipProxy', // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 						'DELIMITER_LEFT'  => '{',
 						'DELIMITER_RIGHT' => '}'
