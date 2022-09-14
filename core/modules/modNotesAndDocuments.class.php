@@ -291,7 +291,7 @@ class modNotesAndDocuments extends DolibarrModules
 			'titre'=>'ModuleNotesAndDocumentsName',
 			'mainmenu'=>'notesanddocuments',
 			'leftmenu'=>'',
-			'url'=>'/notesanddocuments/notesanddocuments_list.php',
+			'url'=>'/custom/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
 			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
