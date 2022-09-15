@@ -187,9 +187,9 @@ class modNotesAndDocuments extends DolibarrModules
 
 		// Dictionaries
 		$this->dictionaries = array('langs'=>array('notesanddocuments@notesanddocuments'),
-		'tabname'=>array(MAIN_DB_PREFIX."notesanddocuments_documentnote_type"),
+		'tabname'=>array(MAIN_DB_PREFIX."notesanddocuments_notesanddocuments_type"),
 		'tablib'=>array("Type de document"),
-		'tabsql'=>array("SELECT rowid, code, label, active FROM ".MAIN_DB_PREFIX."notesanddocuments_documentnote_type"),
+		'tabsql'=>array("SELECT rowid, code, label, active FROM ".MAIN_DB_PREFIX."notesanddocuments_notesanddocuments_type"),
 		'tabsqlsort'=>array("code ASC, label ASC"),
 		'tabfield'=>array("code,label"),
 		'tabfieldvalue'=>array("code,label"),
