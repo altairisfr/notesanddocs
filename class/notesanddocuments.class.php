@@ -966,7 +966,7 @@ class NotesAndDocuments extends CommonObject
 		$langs->load("notesanddocuments@notesanddocuments");
 
 		if (!dol_strlen($modele)) {
-			$modele = 'standard_notesanddocuments';
+			$modele = 'generic_notesanddocuments'; //MJ 'standard_notesanddocuments'
 
 			if ($this->modelpdf) {
 				$modele = $this->modelpdf;
