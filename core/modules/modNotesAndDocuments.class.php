@@ -253,11 +253,32 @@ class modNotesAndDocuments extends DolibarrModules
 		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->notesanddocuments->enabled', 'priority'=>50)
 		// );
 
-		// Permissions provided by this module
+		// Permissions provided by this object
 		$this->rights = array();
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read objects of NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Create/Update objects of NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'write'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Delete objects of NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'delete'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Send NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'send'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		// Permissions provided by this module
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of NotesAndDocuments'; // Permission label
 		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
