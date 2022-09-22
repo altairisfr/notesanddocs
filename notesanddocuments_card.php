@@ -79,6 +79,8 @@ $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 
 // Initialize technical objects
 $object = new NotesAndDocuments($db);
+$object->date_creation = dol_now();
+if (empty($ref)) $object->ref = $object->getNextNumRef();
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->notesanddocuments->dir_output.'/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('notesanddocumentscard', 'globalcard')); // Note that conf->hooks_modules contains array
