@@ -17,9 +17,9 @@
  */
 
 /**
- *  \file       documentnote_document.php
+ *  \file       notesanddocuments_document.php
  *  \ingroup    notesanddocuments
- *  \brief      Tab for documents linked to DocumentNote
+ *  \brief      Tab for documents linked to NotesAndDocuments
  */
 
 // Load Dolibarr environment
@@ -41,8 +41,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-dol_include_once('/notesanddocuments/class/documentnote.class.php');
-dol_include_once('/notesanddocuments/lib/notesanddocuments_documentnote.lib.php');
+dol_include_once('/notesanddocuments/class/notesanddocuments.class.php');
+dol_include_once('/notesanddocuments/lib/notesanddocuments_notesanddocuments.lib.php');
 
 // Load translation files required by the page
 $langs->loadLangs(array("notesanddocuments@notesanddocuments", "companies", "other", "mails"));
@@ -67,28 +67,30 @@ if (!$sortfield) $sortfield = "name";
 //if (! $sortfield) $sortfield="position_name";
 
 // Initialize technical objects
-$object = new DocumentNote($db);
+$object = new NotesAndDocuments($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->notesanddocuments->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('documentnotedocument', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookmanager->initHooks(array('notesanddocumentsdocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 
-//if ($id > 0 || ! empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity?$object->entity:$conf->entity] . "/documentnote/" . dol_sanitizeFileName($object->id);
+//if ($id > 0 || ! empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity?$object->entity:$conf->entity] . "/notesanddocuments/" . dol_sanitizeFileName($object->id);
+// MJ
+// if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity ? $object->entity : $conf->entity]."/notesanddocuments/".dol_sanitizeFileName($object->ref);
 if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".dol_sanitizeFileName($object->ref);
+
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'notesanddocuments', $object->id);
 
-$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
-$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
 if (!$permissiontoread) accessforbidden();
-
 
 
 /*
@@ -114,7 +116,7 @@ if ($object->id)
 	/*
 	 * Show tabs
 	 */
-	$head = documentnotePrepareHead($object);
+	$head = notesanddocumentsPrepareHead($object);
 
 	dol_fiche_head($head, 'document', $langs->trans("DocumentNote"), -1, $object->picto);
 
@@ -129,7 +131,7 @@ if ($object->id)
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/documentnote_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/notesanddocuments_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	/*
@@ -191,13 +193,15 @@ if ($object->id)
 	dol_fiche_end();
 
 	$modulepart = 'notesanddocuments';
-	//$permission = $user->rights->notesanddocuments->documentnote->write;
+	//$permission = $user->rights->notesanddocuments->notesanddocuments->write;
 	$permission = 1;
-	//$permtoedit = $user->rights->notesanddocuments->documentnote->write;
+	//$permtoedit = $user->rights->notesanddocuments->notesanddocuments->write;
 	$permtoedit = 1;
 	$param = '&id='.$object->id;
 
-	//$relativepathwithnofile='documentnote/' . dol_sanitizeFileName($object->id).'/';
+	//$relativepathwithnofile='notesanddocuments/' . dol_sanitizeFileName($object->id).'/';
+	// MJ
+	// $relativepathwithnofile = 'notesanddocuments/'.dol_sanitizeFileName($object->ref).'/';
 	$relativepathwithnofile = '/'.dol_sanitizeFileName($object->ref).'/';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

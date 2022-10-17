@@ -187,9 +187,9 @@ class modNotesAndDocuments extends DolibarrModules
 
 		// Dictionaries
 		$this->dictionaries = array('langs'=>array('notesanddocuments@notesanddocuments'),
-		'tabname'=>array(MAIN_DB_PREFIX."notesanddocuments_documentnote_type"),
+		'tabname'=>array(MAIN_DB_PREFIX."notesanddocuments_notesanddocuments_type"),
 		'tablib'=>array("Type de document"),
-		'tabsql'=>array("SELECT rowid, code, label, active FROM ".MAIN_DB_PREFIX."notesanddocuments_documentnote_type"),
+		'tabsql'=>array("SELECT rowid, code, label, active FROM ".MAIN_DB_PREFIX."notesanddocuments_notesanddocuments_type"),
 		'tabsqlsort'=>array("code ASC, label ASC"),
 		'tabfield'=>array("code,label"),
 		'tabfieldvalue'=>array("code,label"),
@@ -236,8 +236,8 @@ class modNotesAndDocuments extends DolibarrModules
 			//  0 => array(
 			//      'label' => 'MyJob label',
 			//      'jobtype' => 'method',
-			//      'class' => '/notesanddocuments/class/documentnote.class.php',
-			//      'objectname' => 'DocumentNote',
+			//      'class' => '/notesanddocuments/class/notesanddocuments_note.class.php',
+			//      'objectname' => 'NotesAndDocuments',
 			//      'method' => 'doScheduledJob',
 			//      'parameters' => '',
 			//      'comment' => 'Comment',
@@ -253,29 +253,50 @@ class modNotesAndDocuments extends DolibarrModules
 		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->notesanddocuments->enabled', 'priority'=>50)
 		// );
 
-		// Permissions provided by this module
+		// Permissions provided by this object
 		$this->rights = array();
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Create/Update objects of NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'write'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Delete objects of NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'delete'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Send NotesAndDocuments'; // Permission label
+		// $this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'send'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$r++;
+		// Permissions provided by this module
+		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read objects of NotesAndDocuments'; // Permission label
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Send NotesAndDocuments'; // Permission label
-		$this->rights[$r][4] = 'documentnote'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
+		$this->rights[$r][4] = 'notesanddocuments'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$this->rights[$r][5] = 'send'; // In php code, permission will be checked by test if ($user->rights->notesanddocuments->level1->level2)
 		$r++;
 		/* END MODULEBUILDER PERMISSIONS */
@@ -291,55 +312,55 @@ class modNotesAndDocuments extends DolibarrModules
 			'titre'=>'ModuleNotesAndDocumentsName',
 			'mainmenu'=>'notesanddocuments',
 			'leftmenu'=>'',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'url'=>'/custom/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read', // Use 'perms'=>'$user->rights->notesanddocuments->documentnote->read' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read', // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read', // Use 'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0, // 0=Menu for internal users, 1=external users, 2=both
 		);
 		/* END MODULEBUILDER TOPMENU */
-		/* BEGIN MODULEBUILDER LEFTMENU DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER LEFTMENU NOTESANDDOCUMENTS */
 		$this->menu[$r++]=array(
 			'fk_menu'=>'fk_mainmenu=notesanddocuments',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',                          // This is a Top menu entry
 			'titre'=>'DocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'documentnote',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'leftmenu'=>'notesanddocuments',
+			'url'=>'/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
 		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=documentnote',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',			                // This is a Left menu entry
 			'titre'=>'ListDocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'notesanddocuments_documentnote_list',
-			'url'=>'/notesanddocuments/documentnote_list.php',
+			'leftmenu'=>'notesanddocuments_notesanddocuments_list',
+			'url'=>'/notesanddocuments/notesanddocuments_list.php',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->read',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->read',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
 		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=documentnote',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'left',			                // This is a Left menu entry
 			'titre'=>'NewDocumentNote',
 			'mainmenu'=>'notesanddocuments',
-			'leftmenu'=>'notesanddocuments_documentnote_new',
-			'url'=>'/notesanddocuments/documentnote_card.php?action=create',
+			'leftmenu'=>'notesanddocuments_notesanddocuments_new',
+			'url'=>'/notesanddocuments/notesanddocuments_card.php?action=create',
 			'langs'=>'notesanddocuments@notesanddocuments',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->documentnote->write',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'perms'=>'$user->rights->notesanddocuments->documentnote->write',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
+			'enabled'=>'$conf->notesanddocuments->enabled && $user->rights->notesanddocuments->notesanddocuments->write',  // Define condition to show or hide menu entry. Use '$conf->notesanddocuments->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'perms'=>'$user->rights->notesanddocuments->notesanddocuments->write',			                // Use 'perms'=>'$user->rights->notesanddocuments->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0,				                // 0=Menu for internal users, 1=external users, 2=both
 		);
@@ -351,8 +372,8 @@ class modNotesAndDocuments extends DolibarrModules
             'type'=>'left',
             'titre'=>'List DocumentNote',
             'mainmenu'=>'notesanddocuments',
-            'leftmenu'=>'notesanddocuments_documentnote',
-            'url'=>'/notesanddocuments/documentnote_list.php',
+            'leftmenu'=>'notesanddocuments_notesanddocuments',
+            'url'=>'/notesanddocuments/notesanddocuments_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
             'position'=>1100+$r,
@@ -366,13 +387,13 @@ class modNotesAndDocuments extends DolibarrModules
         );
         $this->menu[$r++]=array(
             // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-            'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments_documentnote',
+            'fk_menu'=>'fk_mainmenu=notesanddocuments,fk_leftmenu=notesanddocuments_notesanddocuments',
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'New DocumentNote',
             'mainmenu'=>'notesanddocuments',
-            'leftmenu'=>'notesanddocuments_documentnote',
-            'url'=>'/notesanddocuments/documentnote_card.php?action=create',
+            'leftmenu'=>'notesanddocuments_notesanddocuments',
+            'url'=>'/notesanddocuments/notesanddocuments_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'notesanddocuments@notesanddocuments',
             'position'=>1100+$r,
@@ -385,58 +406,58 @@ class modNotesAndDocuments extends DolibarrModules
             'user'=>2
         );
 
-		/* END MODULEBUILDER LEFTMENU DOCUMENTNOTE */
+		/* END MODULEBUILDER LEFTMENU NOTESANDDOCUMENTS */
 
 		// Exports profiles provided by this module
 		$r = 1;
-		/* BEGIN MODULEBUILDER EXPORT DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER EXPORT NOTESANDDOCUMENTS */
 		/*
 		$langs->load("notesanddocuments@notesanddocuments");
 		$this->export_code[$r]=$this->rights_class.'_'.$r;
-		$this->export_label[$r]='DocumentNoteLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->export_icon[$r]='documentnote@notesanddocuments';
+		$this->export_label[$r]='NotesAndDocumentsLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		$this->export_icon[$r]='notesanddocuments@notesanddocuments';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
-		$keyforclass = 'DocumentNote'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnote@notesanddocuments';
+		$keyforclass = 'NotesAndDocuments'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocuments@notesanddocuments';
 		include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
 		//$this->export_fields_array[$r]['t.fieldtoadd']='FieldToAdd'; $this->export_TypeFields_array[$r]['t.fieldtoadd']='Text';
 		//unset($this->export_fields_array[$r]['t.fieldtoremove']);
-		//$keyforclass = 'DocumentNoteLine'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnoteline@notesanddocuments'; $keyforalias='tl';
+		//$keyforclass = 'NotesAndDocumentsLine'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocumentsline@notesanddocuments'; $keyforalias='tl';
 		//include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
-		$keyforselect='documentnote'; $keyforaliasextra='extra'; $keyforelement='documentnote@notesanddocuments';
+		$keyforselect='notesanddocuments'; $keyforaliasextra='extra'; $keyforelement='notesanddocuments@notesanddocuments';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		//$keyforselect='documentnoteline'; $keyforaliasextra='extraline'; $keyforelement='documentnoteline@notesanddocuments';
+		//$keyforselect='notesanddocumentsline'; $keyforaliasextra='extraline'; $keyforelement='notesanddocumentsline@notesanddocuments';
 		//include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		//$this->export_dependencies_array[$r] = array('documentnoteline'=>array('tl.rowid','tl.ref')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
+		//$this->export_dependencies_array[$r] = array('notesanddocumentsline'=>array('tl.rowid','tl.ref')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
 		//$this->export_special_array[$r] = array('t.field'=>'...');
 		//$this->export_examplevalues_array[$r] = array('t.field'=>'Example');
 		//$this->export_help_array[$r] = array('t.field'=>'FieldDescHelp');
 		$this->export_sql_start[$r]='SELECT DISTINCT ';
-		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'documentnote as t';
-		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'documentnote_line as tl ON tl.fk_documentnote = t.rowid';
+		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'notesanddocuments as t';
+		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'notesanddocuments_line as tl ON tl.fk_notesanddocuments = t.rowid';
 		$this->export_sql_end[$r] .=' WHERE 1 = 1';
-		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('documentnote').')';
+		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('notesanddocuments').')';
 		$r++; */
-		/* END MODULEBUILDER EXPORT DOCUMENTNOTE */
+		/* END MODULEBUILDER EXPORT NOTESANDDOCUMENTS */
 
 		// Imports profiles provided by this module
 		$r = 1;
-		/* BEGIN MODULEBUILDER IMPORT DOCUMENTNOTE */
+		/* BEGIN MODULEBUILDER IMPORT NOTESANDDOCUMENTS */
 		/*
 		 $langs->load("notesanddocuments@notesanddocuments");
 		 $this->export_code[$r]=$this->rights_class.'_'.$r;
-		 $this->export_label[$r]='DocumentNoteLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		 $this->export_icon[$r]='documentnote@notesanddocuments';
-		 $keyforclass = 'DocumentNote'; $keyforclassfile='/notesanddocuments/class/documentnote.class.php'; $keyforelement='documentnote@notesanddocuments';
+		 $this->export_label[$r]='NotesAndDocumentsLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		 $this->export_icon[$r]='notesanddocuments@notesanddocuments';
+		 $keyforclass = 'NotesAndDocuments'; $keyforclassfile='/notesanddocuments/class/notesanddocuments.class.php'; $keyforelement='notesanddocuments@notesanddocuments';
 		 include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
-		 $keyforselect='documentnote'; $keyforaliasextra='extra'; $keyforelement='documentnote@notesanddocuments';
+		 $keyforselect='notesanddocuments'; $keyforaliasextra='extra'; $keyforelement='notesanddocuments@notesanddocuments';
 		 include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
 		 //$this->export_dependencies_array[$r]=array('mysubobject'=>'ts.rowid', 't.myfield'=>array('t.myfield2','t.myfield3')); // To force to activate one or several fields if we select some fields that need same (like to select a unique key if we ask a field of a child to avoid the DISTINCT to discard them, or for computed field than need several other fields)
 		 $this->export_sql_start[$r]='SELECT DISTINCT ';
-		 $this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'documentnote as t';
+		 $this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'notesanddocuments as t';
 		 $this->export_sql_end[$r] .=' WHERE 1 = 1';
-		 $this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('documentnote').')';
+		 $this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('notesanddocuments').')';
 		 $r++; */
-		/* END MODULEBUILDER IMPORT DOCUMENTNOTE */
+		/* END MODULEBUILDER IMPORT NOTESANDDOCUMENTS */
 	}
 
 	/**
@@ -471,14 +492,14 @@ class modNotesAndDocuments extends DolibarrModules
 		// Document templates
 		$moduledir = 'notesanddocuments';
 		$myTmpObjects = array();
-		$myTmpObjects['DocumentNote']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
+		$myTmpObjects['NotesAndDocuments']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
 
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
-			if ($myTmpObjectKey == 'DocumentNote') continue;
+			if ($myTmpObjectKey == 'NotesAndDocuments') continue;
 			if ($myTmpObjectArray['includerefgeneration']) {
-				$src=DOL_DOCUMENT_ROOT.'/install/doctemplates/notesanddocuments/template_documentnotes.odt';
+				$src=DOL_DOCUMENT_ROOT.'/install/doctemplates/notesanddocuments/template_notesanddocuments.odt';
 				$dirodt=DOL_DATA_ROOT.'/doctemplates/notesanddocuments';
-				$dest=$dirodt.'/template_documentnotes.odt';
+				$dest=$dirodt.'/template_notesanddocuments.odt';
 
 				if (file_exists($src) && ! file_exists($dest))
 				{

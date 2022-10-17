@@ -17,9 +17,9 @@
  */
 
 /**
- * \file        class/documentnote.class.php
+ * \file        class/notesanddocuments.class.php
  * \ingroup     notesanddocuments
- * \brief       This file is a CRUD class file for DocumentNote (Create/Read/Update/Delete)
+ * \brief       This file is a CRUD class file for NotesAndDocuments (Create/Read/Update/Delete)
  */
 
 // Put here all includes required by your class file
@@ -28,19 +28,19 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 //require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
 /**
- * Class for DocumentNote
+ * Class for NotesAndDocuments
  */
-class DocumentNote extends CommonObject
+class NotesAndDocuments extends CommonObject
 {
 	/**
 	 * @var string ID to identify managed object.
 	 */
-	public $element = 'documentnote';
+	public $element = 'notesanddocuments';
 
 	/**
 	 * @var string Name of table without prefix where object is stored. This is also the key used for extrafields management.
 	 */
-	public $table_element = 'notesanddocuments_documentnote';
+	public $table_element = 'notesanddocuments_notesanddocuments';
 
 	/**
 	 * @var int  Does this object support multicompany module ?
@@ -54,7 +54,7 @@ class DocumentNote extends CommonObject
 	public $isextrafieldmanaged = 1;
 
 	/**
-	 * @var string String with name of icon for documentnote. Must be the part after the 'object_' into object_documentnote.png
+	 * @var string String with name of icon for notesanddocuments. Must be the part after the 'object_' into object_notesanddocuments.png
 	 */
 	public $picto = 'donation';
 
@@ -95,7 +95,7 @@ class DocumentNote extends CommonObject
 	 */
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>0, 'noteditable'=>'1', 'index'=>1, 'comment'=>"Id"),
-		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>10, 'notnull'=>1, 'visible'=>4, 'noteditable'=>'1', 'default'=>'(PROV)', 'index'=>1, 'searchall'=>1, 'showoncombobox'=>'1', 'comment'=>"Reference of object"),
+		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>10, 'notnull'=>1, 'visible'=>1, 'noteditable'=>'1', 'default'=>'(PROV)', 'index'=>1, 'searchall'=>1, 'showoncombobox'=>'1', 'comment'=>"Reference of object"),
 		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>'1', 'position'=>30, 'notnull'=>0, 'visible'=>1, 'searchall'=>1, 'css'=>'minwidth200', 'help'=>"Help text", 'showoncombobox'=>'1',),
 		'fk_soc' => array('type'=>'integer:Societe:societe/class/societe.class.php:1:status=1 AND entity IN (__SHARED_ENTITIES__)', 'label'=>'ThirdParty', 'enabled'=>'1', 'position'=>50, 'notnull'=>-1, 'visible'=>1, 'index'=>1, 'help'=>"LinkToThirparty",),
 		'fk_project' => array('type'=>'integer:Project:projet/class/project.class.php:1', 'label'=>'Project', 'enabled'=>'1', 'position'=>52, 'notnull'=>-1, 'visible'=>-1, 'index'=>1,),
@@ -104,11 +104,11 @@ class DocumentNote extends CommonObject
 		'fk_user_creat' => array('type'=>'integer:User:user/class/user.class.php', 'label'=>'UserAuthor', 'enabled'=>'1', 'position'=>510, 'notnull'=>1, 'visible'=>-2, 'foreignkey'=>'user.rowid',),
 		'fk_user_modif' => array('type'=>'integer:User:user/class/user.class.php', 'label'=>'UserModif', 'enabled'=>'1', 'position'=>511, 'notnull'=>-1, 'visible'=>-2,),
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'enabled'=>'1', 'position'=>1000, 'notnull'=>-1, 'visible'=>-2,),
+		'model_pdf' => array('type'=>'varchar(255)', 'label'=>'Model pdf', 'enabled'=>'1', 'position'=>1010, 'notnull'=>-1, 'visible'=>0,),
 		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Valid&eacute;', '9'=>'Annul&eacute;'),),
-		'content' => array('type'=>'html', 'label'=>'Content', 'enabled'=>'1', 'position'=>62, 'notnull'=>0, 'visible'=>-1,),
-		'keywords' => array('type'=>'text', 'label'=>'Keywords', 'enabled'=>'1', 'position'=>64, 'notnull'=>0, 'visible'=>1, 'searchall'=>1,),
 		'fk_type' => array('type'=>'integer:TypeDocument:notesanddocuments/class/typedocument.class.php', 'label'=>'TypeDocument', 'enabled'=>'1', 'position'=>12, 'notnull'=>0, 'visible'=>1,),
-		'model_pdf' => array('type'=>'varchar(255)', 'label'=>'PDFModel', 'enabled'=>'1', 'position'=>1010, 'notnull'=>-1, 'visible'=>0,),
+		'content' => array('type'=>'html', 'label'=>'Content', 'enabled'=>'1', 'position'=>62, 'notnull'=>0, 'visible'=>-1,),
+		'keywords' => array('type'=>'text', 'label'=>'Keywords', 'enabled'=>'1', 'position'=>64, 'notnull'=>0, 'visible'=>1,),
 		'last_main_doc' => array('type'=>'varchar(255)', 'label'=>'LastMainDoc', 'enabled'=>'1', 'position'=>1020, 'notnull'=>-1, 'visible'=>0,),
 	);
 	public $rowid;
@@ -121,11 +121,11 @@ class DocumentNote extends CommonObject
 	public $fk_user_creat;
 	public $fk_user_modif;
 	public $import_key;
+	public $model_pdf;
 	public $status;
+	public $fk_type;
 	public $content;
 	public $keywords;
-	public $fk_type;
-	public $model_pdf;
 	public $last_main_doc;
 	// END MODULEBUILDER PROPERTIES
 
@@ -135,17 +135,17 @@ class DocumentNote extends CommonObject
 	/**
 	 * @var int    Name of subtable line
 	 */
-	//public $table_element_line = 'notesanddocuments_documentnoteline';
+	//public $table_element_line = 'notesanddocuments_notesanddocumentsline';
 
 	/**
 	 * @var int    Field with ID of parent key if this object has a parent
 	 */
-	//public $fk_element = 'fk_documentnote';
+	//public $fk_element = 'fk_notesanddocuments';
 
 	/**
 	 * @var int    Name of subtable class that manage subtable lines
 	 */
-	//public $class_element_line = 'DocumentNoteline';
+	//public $class_element_line = 'NotesAndDocumentsline';
 
 	/**
 	 * @var array	List of child tables. To test if we can delete object.
@@ -157,10 +157,10 @@ class DocumentNote extends CommonObject
 	 *               If name matches '@ClassNAme:FilePathClass;ParentFkFieldName' it will
 	 *               call method deleteByParentField(parentId, ParentFkFieldName) to fetch and delete child object
 	 */
-	//protected $childtablesoncascade = array('notesanddocuments_documentnotedet');
+	//protected $childtablesoncascade = array('notesanddocuments_notesanddocumentsdet');
 
 	/**
-	 * @var DocumentNoteLine[]     Array of subtable lines
+	 * @var NotesAndDocumentsLine[]     Array of subtable lines
 	 */
 	//public $lines = array();
 
@@ -181,7 +181,7 @@ class DocumentNote extends CommonObject
 		if (empty($conf->multicompany->enabled) && isset($this->fields['entity'])) $this->fields['entity']['enabled'] = 0;
 
 		// Example to show how to set values of fields definition dynamically
-		/*if ($user->rights->notesanddocuments->documentnote->read) {
+		/*if ($user->rights->notesanddocuments->notesanddocuments->read) {
 			$this->fields['myfield']['visible'] = 1;
 			$this->fields['myfield']['noteditable'] = 0;
 		}*/
@@ -220,7 +220,160 @@ class DocumentNote extends CommonObject
 	 */
 	public function create(User $user, $notrigger = false)
 	{
-		return $this->createCommon($user, $notrigger);
+		global $langs;
+		dol_syslog(get_class($this)."::create", LOG_DEBUG);
+
+		$error = 0;
+
+		$now = dol_now();
+
+		$fieldvalues = $this->setSaveQuery();
+
+		if (array_key_exists('date_creation', $fieldvalues) && empty($fieldvalues['date_creation'])) {
+			$fieldvalues['date_creation'] = $this->db->idate($now);
+		}
+		if (array_key_exists('fk_user_creat', $fieldvalues) && !($fieldvalues['fk_user_creat'] > 0)) {
+			$fieldvalues['fk_user_creat'] = $user->id;
+		}
+		unset($fieldvalues['rowid']); // The field 'rowid' is reserved field name for autoincrement field so we don't need it into insert.
+		if (array_key_exists('ref', $fieldvalues)) {
+			$fieldvalues['ref'] = dol_string_nospecial($fieldvalues['ref']); // If field is a ref, we sanitize data
+		}
+
+		$keys = array();
+		$values = array(); // Array to store string forged for SQL syntax
+		foreach ($fieldvalues as $k => $v) {
+			$keys[$k] = $k;
+			$value = $this->fields[$k];
+			$values[$k] = $this->quote($v, $value); // May return string 'NULL' if $value is null
+		}
+
+		// Clean and check mandatory
+		foreach ($keys as $key) {
+			// If field is an implicit foreign key field
+			if (preg_match('/^integer:/i', $this->fields[$key]['type']) && $values[$key] == '-1') {
+				$values[$key] = '';
+			}
+			if (!empty($this->fields[$key]['foreignkey']) && $values[$key] == '-1') {
+				$values[$key] = '';
+			}
+
+			if (isset($this->fields[$key]['notnull']) && $this->fields[$key]['notnull'] == 1 && (!isset($values[$key]) || $values[$key] === 'NULL') && is_null($this->fields[$key]['default'])) {
+				$error++;
+				$langs->load("errors");
+				dol_syslog("Mandatory field '".$key."' is empty and required into ->fields definition of class");
+				$this->errors[] = $langs->trans("ErrorFieldRequired", $this->fields[$key]['label']);
+			}
+
+			// If value is null and there is a default value for field
+			if (isset($this->fields[$key]['notnull']) && $this->fields[$key]['notnull'] == 1 && (!isset($values[$key]) || $values[$key] === 'NULL') && !is_null($this->fields[$key]['default'])) {
+				$values[$key] = $this->quote($this->fields[$key]['default'], $this->fields[$key]);
+			}
+
+			// If field is an implicit foreign key field
+			if (preg_match('/^integer:/i', $this->fields[$key]['type']) && empty($values[$key])) {
+				if (isset($this->fields[$key]['default'])) {
+					$values[$key] = ((int) $this->fields[$key]['default']);
+				} else {
+					$values[$key] = 'null';
+				}
+			}
+			if (!empty($this->fields[$key]['foreignkey']) && empty($values[$key])) {
+				$values[$key] = 'null';
+			}
+		}
+
+		if ($error) {
+			return -1;
+		}
+
+		$this->db->begin();
+
+		if (!$error) {
+			$sql = "INSERT INTO ".MAIN_DB_PREFIX.$this->table_element;
+			$sql .= " (".implode(", ", $keys).')';
+			$sql .= " VALUES (".implode(", ", $values).")";		// $values can contains 'abc' or 123
+
+			$res = $this->db->query($sql);
+			if (!$res) {
+				$error++;
+				if ($this->db->lasterrno() == 'DB_ERROR_RECORD_ALREADY_EXISTS') {
+					$this->errors[] = "ErrorRefAlreadyExists";
+				} else {
+					$this->errors[] = $this->db->lasterror();
+				}
+			}
+		}
+
+		if (!$error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.$this->table_element);
+		}
+
+		// If we have a field ref with a default value of (PROV)
+		if (!$error) { 
+			if (key_exists('ref', $this->fields) && $this->fields['ref']['notnull'] > 0 && key_exists('default', $this->fields['ref']) && $this->fields['ref']['default'] == '(PROV)') {
+				$sql = "UPDATE ".MAIN_DB_PREFIX.$this->table_element." SET ref = '".$this->ref."' WHERE (ref = '(PROV)' OR ref = '') AND rowid = ".((int) $this->id);
+				$resqlupdate = $this->db->query($sql);
+
+				if ($resqlupdate === false) {
+					$error++;
+					$this->errors[] = $this->db->lasterror();
+				} else {
+					$this->ref = '(PROV'.$this->id.')';
+				}
+			}
+		}
+
+		// Create extrafields
+		if (!$error) {
+			$result = $this->insertExtraFields();
+			if ($result < 0) {
+				$error++;
+			}
+		}
+
+		// Create lines
+		if (!empty($this->table_element_line) && !empty($this->fk_element)) {
+			$num = (is_array($this->lines) ? count($this->lines) : 0);
+			for ($i = 0; $i < $num; $i++) {
+				$line = $this->lines[$i];
+
+				$keyforparent = $this->fk_element;
+				$line->$keyforparent = $this->id;
+
+				// Test and convert into object this->lines[$i]. When coming from REST API, we may still have an array
+				//if (! is_object($line)) $line=json_decode(json_encode($line), false);  // convert recursively array into object.
+				if (!is_object($line)) {
+					$line = (object) $line;
+				}
+
+				$result = $line->create($user, 1);
+				if ($result < 0) {
+					$this->error = $line->error;
+					$this->db->rollback();
+					return -1;
+				}
+			}
+		}
+
+		// Triggers
+		if (!$error && !$notrigger) {
+			// Call triggers
+			$result = $this->call_trigger(strtoupper(get_class($this)).'_CREATE', $user);
+			if ($result < 0) {
+				$error++;
+			}
+			// End call triggers
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+			return -1;
+		} else {
+			$this->db->commit();
+			return $this->id;
+		}
 	}
 
 	/**
@@ -494,8 +647,8 @@ class DocumentNote extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->documentnote->write))
-		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->documentnote->documentnote_advance->validate))))
+		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->notesanddocuments->write))
+		 || (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! empty($user->rights->notesanddocuments->notesanddocuments->notesanddocuments_advance->validate))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -538,7 +691,7 @@ class DocumentNote extends CommonObject
 			if (!$error && !$notrigger)
 			{
 				// Call trigger
-				$result = $this->call_trigger('DOCUMENTNOTE_VALIDATE', $user);
+				$result = $this->call_trigger('NOTESANDDOCUMENTS_VALIDATE', $user);
 				if ($result < 0) $error++;
 				// End call triggers
 			}
@@ -552,16 +705,16 @@ class DocumentNote extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref))
 			{
 				// Now we rename also files into index
-				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = '/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = '/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'notesanddocuments/".$this->db->escape($this->newref)."'";
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'notesanddocuments/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) { $error++; $this->error = $this->db->lasterror(); }
 
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->notesanddocuments->dir_output.'//'.$oldref;
-				$dirdest = $conf->notesanddocuments->dir_output.'//'.$newref;
+				$dirsource = $conf->notesanddocuments->dir_output.'/notesanddocuments/'.$oldref;
+				$dirdest = $conf->notesanddocuments->dir_output.'/notesanddocuments/'.$newref;
 				if (!$error && file_exists($dirsource))
 				{
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
@@ -570,7 +723,7 @@ class DocumentNote extends CommonObject
 					{
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->notesanddocuments->dir_output.'//'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($conf->notesanddocuments->dir_output.'/notesanddocuments/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry)
 						{
 							$dirsource = $fileentry['name'];
@@ -626,7 +779,7 @@ class DocumentNote extends CommonObject
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'DOCUMENTNOTE_UNVALIDATE');
+		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'NOTESANDDOCUMENTS_UNVALIDATE');
 	}
 
 	/**
@@ -651,7 +804,7 @@ class DocumentNote extends CommonObject
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'DOCUMENTNOTE_CLOSE');
+		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'NOTESANDDOCUMENTS_CLOSE');
 	}
 
 	/**
@@ -676,7 +829,7 @@ class DocumentNote extends CommonObject
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'DOCUMENTNOTE_REOPEN');
+		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'NOTESANDDOCUMENTS_REOPEN');
 	}
 
 	/**
@@ -697,14 +850,14 @@ class DocumentNote extends CommonObject
 
 		$result = '';
 
-		$label = '<u>'.$langs->trans("DocumentNote").'</u>';
+		$label = '<u>'.$langs->trans("NotesAndDocuments").'</u>';
 		$label .= '<br>';
 		$label .= '<b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (isset($this->status)) {
 			$label .= '<br><b>'.$langs->trans("Status").":</b> ".$this->getLibStatut(5);
 		}
 
-		$url = dol_buildpath('/notesanddocuments/documentnote_card.php', 1).'?id='.$this->id;
+		$url = dol_buildpath('/notesanddocuments/notesanddocuments_card.php', 1).'?id='.$this->id;
 
 		if ($option != 'nolink')
 		{
@@ -719,7 +872,7 @@ class DocumentNote extends CommonObject
 		{
 			if (!empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER))
 			{
-				$label = $langs->trans("ShowDocumentNote");
+				$label = $langs->trans("ShowNotesAndDocuments");
 				$linkclose .= ' alt="'.dol_escape_htmltag($label, 1).'"';
 			}
 			$linkclose .= ' title="'.dol_escape_htmltag($label, 1).'"';
@@ -768,7 +921,7 @@ class DocumentNote extends CommonObject
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action, $hookmanager;
-		$hookmanager->initHooks(array('documentnotedao'));
+		$hookmanager->initHooks(array('notesanddocumentsdao'));
 		$parameters = array('id'=>$this->id, 'getnomurl'=>$result);
 		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) $result = $hookmanager->resPrint;
@@ -883,31 +1036,6 @@ class DocumentNote extends CommonObject
 	}
 
 	/**
-	 * 	Create an array of lines
-	 *
-	 * 	@return array|int		array of lines if OK, <0 if KO
-	 */
-	public function getLinesArray()
-	{
-		$this->lines = array();
-
-		$objectline = new DocumentNoteLine($this->db);
-		$result = $objectline->fetchAll('ASC', 'position', 0, 0, array('customsql'=>'fk_documentnote = '.$this->id));
-
-		if (is_numeric($result))
-		{
-			$this->error = $this->error;
-			$this->errors = $this->errors;
-			return $result;
-		}
-		else
-		{
-			$this->lines = $result;
-			return $this->lines;
-		}
-	}
-
-	/**
 	 *  Returns the reference to the following non used object depending on the active numbering module.
 	 *
 	 *  @return string      		Object free reference
@@ -917,16 +1045,16 @@ class DocumentNote extends CommonObject
 		global $langs, $conf;
 		$langs->load("notesanddocuments@notesanddocuments");
 
-		if (empty($conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON)) {
-			$conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON = 'mod_documentnote_standard';
+		if (empty($conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON)) {
+			$conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON = 'mod_notesanddocuments_standard';
 		}
 
-		if (!empty($conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON))
+		if (!empty($conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON))
 		{
 			$mybool = false;
 
-			$file = $conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON.".php";
-			$classname = $conf->global->NOTESANDDOCUMENTS_DOCUMENTNOTE_ADDON;
+			$file = $conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON.".php";
+			$classname = $conf->global->NOTESANDDOCUMENTS_NOTESANDDOCUMENTS_ADDON;
 
 			// Include file with class
 			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
@@ -991,12 +1119,12 @@ class DocumentNote extends CommonObject
 		$langs->load("notesanddocuments@notesanddocuments");
 
 		if (!dol_strlen($modele)) {
-			$modele = 'standard_documentnote';
+			$modele = 'generic_notesanddocuments'; //MJ 'standard_notesanddocuments'
 
 			if ($this->modelpdf) {
 				$modele = $this->modelpdf;
-			} elseif (!empty($conf->global->DOCUMENTNOTE_ADDON_PDF)) {
-				$modele = $conf->global->DOCUMENTNOTE_ADDON_PDF;
+			} elseif (!empty($conf->global->NOTESANDDOCUMENTS_ADDON_PDF)) {
+				$modele = $conf->global->NOTESANDDOCUMENTS_ADDON_PDF;
 			}
 		}
 
@@ -1037,29 +1165,5 @@ class DocumentNote extends CommonObject
 		$this->db->commit();
 
 		return $error;
-	}
-}
-
-/**
- * Class DocumentNoteLine. You can also remove this and generate a CRUD class for lines objects.
- */
-class DocumentNoteLine
-{
-	// To complete with content of an object DocumentNoteLine
-	// We should have a field rowid, fk_documentnote and position
-
-	/**
-	 * @var int  Does object support extrafields ? 0=No, 1=Yes
-	 */
-	public $isextrafieldmanaged = 0;
-
-	/**
-	 * Constructor
-	 *
-	 * @param DoliDb $db Database handler
-	 */
-	public function __construct(DoliDB $db)
-	{
-		$this->db = $db;
 	}
 }

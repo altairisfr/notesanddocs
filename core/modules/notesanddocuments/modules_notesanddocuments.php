@@ -23,9 +23,9 @@
  */
 
 /**
- *  \file			htdocs/core/modules/notesanddocuments/modules_documentnote.php
+ *  \file			htdocs/core/modules/notesanddocuments/modules_notesanddocuments.php
  *  \ingroup		notesanddocuments
- *  \brief			File that contains parent class for documentnotes document models and parent class for documentnotes numbering models
+ *  \brief			File that contains parent class for notesanddocumentss document models and parent class for notesanddocumentss numbering models
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php'; // requir
 /**
  *	Parent class for documents models
  */
-abstract class ModelePDFDocumentNote extends CommonDocGenerator
+abstract class ModelePDFNotesAndDocuments extends CommonDocGenerator
 {
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -51,7 +51,7 @@ abstract class ModelePDFDocumentNote extends CommonDocGenerator
 		// phpcs:enable
 		global $conf;
 
-		$type = 'documentnote';
+		$type = 'notesanddocuments';
 		$list = array();
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -64,9 +64,9 @@ abstract class ModelePDFDocumentNote extends CommonDocGenerator
 
 
 /**
- *  Parent class to manage numbering of DocumentNote
+ *  Parent class to manage numbering of NotesAndDocuments
  */
-abstract class ModeleNumRefDocumentNote
+abstract class ModeleNumRefNotesAndDocuments
 {
 	/**
 	 * @var string Error code (or message)

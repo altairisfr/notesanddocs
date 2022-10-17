@@ -17,9 +17,9 @@
  */
 
 /**
- *  \file       documentnote_note.php
+ *  \file       notesanddocuments_note.php
  *  \ingroup    notesanddocuments
- *  \brief      Car with notes on DocumentNote
+ *  \brief      Car with notes on NotesAndDocuments
  */
 
 // Load Dolibarr environment
@@ -37,8 +37,8 @@ if (!$res && file_exists("../../main.inc.php")) $res = @include "../../main.inc.
 if (!$res && file_exists("../../../main.inc.php")) $res = @include "../../../main.inc.php";
 if (!$res) die("Include of main fails");
 
-dol_include_once('/notesanddocuments/class/documentnote.class.php');
-dol_include_once('/notesanddocuments/lib/notesanddocuments_documentnote.lib.php');
+dol_include_once('/notesanddocuments/class/notesanddocuments.class.php');
+dol_include_once('/notesanddocuments/lib/notesanddocuments_notesanddocuments.lib.php');
 
 // Load translation files required by the page
 $langs->loadLangs(array("notesanddocuments@notesanddocuments", "companies"));
@@ -51,10 +51,10 @@ $cancel     = GETPOST('cancel', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 // Initialize technical objects
-$object = new DocumentNote($db);
+$object = new NotesAndDocuments($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->notesanddocuments->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('documentnotenote', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookmanager->initHooks(array('notesanddocumentsnote', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -67,8 +67,8 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_output[$object->entity]."/".$object->id;
 
-$permissionnote = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_setnotes.inc.php
-$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissionnote = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_setnotes.inc.php
+$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
 
 
 
@@ -93,13 +93,13 @@ if ($id > 0 || !empty($ref))
 {
 	$object->fetch_thirdparty();
 
-	$head = documentnotePrepareHead($object);
+	$head = notesanddocumentsPrepareHead($object);
 
 	dol_fiche_head($head, 'note', $langs->trans("DocumentNote"), -1, $object->picto);
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/documentnote_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/notesanddocuments_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	/*

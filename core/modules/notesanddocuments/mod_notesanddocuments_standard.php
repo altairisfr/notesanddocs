@@ -18,17 +18,17 @@
  */
 
 /**
- *  \file       htdocs/core/modules/notesanddocuments/mod_documentnote_standard.php
+ *  \file       htdocs/core/modules/notesanddocuments/mod_notesanddocuments_standard.php
  *  \ingroup    notesanddocuments
- *  \brief      File of class to manage DocumentNote numbering rules standard
+ *  \brief      File of class to manage NotesAndDocuments numbering rules standard
  */
-dol_include_once('/notesanddocuments/core/modules/notesanddocuments/modules_documentnote.php');
+dol_include_once('/notesanddocuments/core/modules/notesanddocuments/modules_notesanddocuments.php');
 
 
 /**
  *	Class to manage customer order numbering rules standard
  */
-class mod_documentnote_standard extends ModeleNumRefDocumentNote
+class mod_notesanddocuments_standard extends ModeleNumRefNotesAndDocuments
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -36,7 +36,7 @@ class mod_documentnote_standard extends ModeleNumRefDocumentNote
 	 */
 	public $version = 'dolibarr'; // 'development', 'experimental', 'dolibarr'
 
-	public $prefix = 'DOCUMENTNOTE';
+	public $prefix = 'NOTESANDDOCUMENTS';
 
 	/**
 	 * @var string Error code (or message)
@@ -87,7 +87,7 @@ class mod_documentnote_standard extends ModeleNumRefDocumentNote
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_documentnote";
+		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_notesanddocuments";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " AND entity = ".$conf->entity;
@@ -125,7 +125,7 @@ class mod_documentnote_standard extends ModeleNumRefDocumentNote
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_documentnote";
+		$sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_notesanddocuments";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " AND entity = ".$conf->entity;
@@ -143,7 +143,7 @@ class mod_documentnote_standard extends ModeleNumRefDocumentNote
 		}
 		else
 		{
-			dol_syslog("mod_documentnote_standard::getNextValue", LOG_DEBUG);
+			dol_syslog("mod_notesanddocuments_standard::getNextValue", LOG_DEBUG);
 			return -1;
 		}
 
@@ -154,7 +154,7 @@ class mod_documentnote_standard extends ModeleNumRefDocumentNote
 		if ($max >= (pow(10, 4) - 1)) $num = $max + 1; // If counter > 9999, we do not format on 4 chars, we take number as it is
 		else $num = sprintf("%04s", $max + 1);
 
-		dol_syslog("mod_documentnote_standard::getNextValue return ".$this->prefix.$yymm."-".$num);
+		dol_syslog("mod_notesanddocuments_standard::getNextValue return ".$this->prefix.$yymm."-".$num);
 		return $this->prefix.$yymm."-".$num;
 	}
 }

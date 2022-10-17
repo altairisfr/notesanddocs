@@ -17,9 +17,9 @@
  */
 
 /**
- *  \file       documentnote_agenda.php
+ *  \file       notesanddocuments_agenda.php
  *  \ingroup    notesanddocuments
- *  \brief      Page of DocumentNote events
+ *  \brief      Page of NotesAndDocuments events
  */
 
 // Load Dolibarr environment
@@ -40,8 +40,8 @@ if (!$res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-dol_include_once('/notesanddocuments/class/documentnote.class.php');
-dol_include_once('/notesanddocuments/lib/notesanddocuments_documentnote.lib.php');
+dol_include_once('/notesanddocuments/class/notesanddocuments.class.php');
+dol_include_once('/notesanddocuments/lib/notesanddocuments_notesanddocuments.lib.php');
 
 
 // Load translation files required by the page
@@ -77,10 +77,10 @@ if (!$sortfield) $sortfield = 'a.datep,a.id';
 if (!$sortorder) $sortorder = 'DESC,DESC';
 
 // Initialize technical objects
-$object = new DocumentNote($db);
+$object = new NotesAndDocuments($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->notesanddocuments->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('documentnoteagenda', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookmanager->initHooks(array('notesanddocumentsagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -93,8 +93,8 @@ if ($id > 0 || !empty($ref)) $upload_dir = $conf->notesanddocuments->multidir_ou
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'notesanddocuments', $object->id);
 
-$permissiontoadd = $user->rights->notesanddocuments->documentnote->write; // Used by the include of actions_addupdatedelete.inc.php
-$permissiontoread = $user->rights->notesanddocuments->documentnote->read;
+$permissiontoadd = $user->rights->notesanddocuments->notesanddocuments->write; // Used by the include of actions_addupdatedelete.inc.php
+$permissiontoread = $user->rights->notesanddocuments->notesanddocuments->read;
 if (!$permissiontoread) accessforbidden();
 
 
@@ -139,14 +139,14 @@ if ($object->id > 0)
 	llxHeader('', $title, $help_url);
 
 	if (!empty($conf->notification->enabled)) $langs->load("mails");
-	$head = documentnotePrepareHead($object);
+	$head = notesanddocumentsPrepareHead($object);
 
 
 	dol_fiche_head($head, 'agenda', $langs->trans("DocumentNote"), -1, 'object_'.$object->picto);
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/documentnote_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.dol_buildpath('/notesanddocuments/notesanddocuments_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	/*
@@ -244,7 +244,7 @@ if ($object->id > 0)
 		if ($limit > 0 && $limit != $conf->liste_limit) $param .= '&limit='.urlencode($limit);
 
 
-		//print load_fiche_titre($langs->trans("ActionsOnDocumentNote"), '', '');
+		//print load_fiche_titre($langs->trans("ActionsOnNotesAndDocuments"), '', '');
 
 		// List of all actions
 		$filters = array();

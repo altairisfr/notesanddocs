@@ -15,5 +15,5 @@
 
 
 -- BEGIN MODULEBUILDER INDEXES
-ALTER TABLE llx_notesanddocuments_documentnote_extrafields ADD INDEX idx_fk_object(fk_object);
+ALTER TABLE llx_notesanddocuments_notesanddocuments_extrafields ADD INDEX idx_fk_object(fk_object);
 -- END MODULEBUILDER INDEXES

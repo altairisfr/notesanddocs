@@ -14,7 +14,7 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
-CREATE TABLE llx_notesanddocuments_documentnote(
+CREATE TABLE llx_notesanddocuments_notesanddocuments(
 	-- BEGIN MODULEBUILDER FIELDS
 	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL, 
 	ref varchar(128) DEFAULT '(PROV)' NOT NULL, 
@@ -26,10 +26,11 @@ CREATE TABLE llx_notesanddocuments_documentnote(
 	fk_user_creat integer NOT NULL, 
 	fk_user_modif integer, 
 	import_key varchar(14), 
+	model_pdf varchar(255), 
 	status smallint NOT NULL, 
+	fk_type integer, 
 	content text, 
 	keywords text, 
-	fk_type integer, 
-	model_pdf varchar(255)
+	last_main_doc varchar(255)
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;

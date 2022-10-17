@@ -54,7 +54,7 @@ $action = GETPOST('action', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $value = GETPOST('value', 'alpha');
-$type = 'DocumentNote';
+$type = 'NotesAndDocuments';
 
 /* MJ
 $arrayofparameters = array(
@@ -259,7 +259,7 @@ if ($action == 'edit')
 
 $moduledir = 'notesanddocuments/';
 $myTmpObjects = array();
-$myTmpObjects['DocumentNote']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
+$myTmpObjects['NotesAndDocuments']=array('includerefgeneration'=>0, 'includedocgeneration'=>1);
 
 
 foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
@@ -475,7 +475,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 										{
 											print img_picto($langs->trans("Default"), 'on');
 										} else {
-											print '<a href="'.$_SERVER["PHP_SELF"].'?object=NOTESANDDOCUMENTS_DocumentNote&action=setdoc&value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+											print '<a href="'.$_SERVER["PHP_SELF"].'?object=NOTESANDDOCUMENTS_NotesAndDocuments&action=setdoc&value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 										}
 										print '</td>';
 

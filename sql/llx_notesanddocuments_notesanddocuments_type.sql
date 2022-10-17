@@ -12,12 +12,15 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see https://www.gnu.org/licenses/.
+--
+-- ========================================================================
 
-create table llx_notesanddocuments_documentnote_extrafields
+create table llx_notesanddocuments_notesanddocuments_type
 (
-  rowid                     integer AUTO_INCREMENT PRIMARY KEY,
-  tms                       timestamp,
-  fk_object                 integer NOT NULL,
-  import_key                varchar(14)                          		-- import key
-) ENGINE=innodb;
+  rowid    integer            AUTO_INCREMENT PRIMARY KEY,
+  code     varchar(16)        NOT NULL,
+  entity   integer  DEFAULT 1 NOT NULL,	-- multi company id
+  label	   varchar(50)        NOT NULL,
+  active   integer  DEFAULT 1 NOT NULL
 
+)ENGINE=innodb;

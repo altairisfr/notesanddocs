@@ -16,7 +16,7 @@ class TypeDocument // extends CommonObject
 	 */
 	public $errors = array();
     public $element = 'typedocument'; //!< Id that identify managed objects
-	public $table_element = 'notesanddocuments_documentnote_type'; //!< Name of table without prefix where object is stored
+	public $table_element = 'notesanddocuments_notesanddocuments_type'; //!< Name of table without prefix where object is stored
     /**
 	 * @var int ID
 	 */
@@ -61,7 +61,7 @@ class TypeDocument // extends CommonObject
   		$sql .= " entity,";
   		$sql .= " label,";
         $sql .= " active";
-        $sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_documentnote_type";
+        $sql .= " FROM ".MAIN_DB_PREFIX."notesanddocuments_notesanddocuments_type";
         if ($id) $sql .= " WHERE rowid = ".$id;
         elseif ($code) $sql .= " WHERE code = '".$this->db->escape($code)."'";
 
