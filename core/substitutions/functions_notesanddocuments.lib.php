@@ -27,7 +27,6 @@ function notesanddocuments_completesubstitutionarray(&$substitutionarray,$langs,
    $substitutionarray['document_keywords'] = $document_keywords;
 
    $creator = new User($db);
-   
    $creator->fetch($object->fk_user_creat);
    $substitutionarray['document_user_creat'] = $creator->firstname . ' ' . $creator->lastname;
    
