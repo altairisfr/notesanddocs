@@ -8,6 +8,7 @@
  *		@param	Object		$object			Object to use to get values
  * 		@return	void					The entry parameter $substitutionarray is modified
  */
+require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
 function notesanddocuments_completesubstitutionarray(&$substitutionarray,$langs,$object)
 {
@@ -24,4 +25,12 @@ function notesanddocuments_completesubstitutionarray(&$substitutionarray,$langs,
 
    $document_keywords = $object->keywords;
    $substitutionarray['document_keywords'] = $document_keywords;
+
+   $creator = new User($db);
+   $creator->fetch($object->fk_user_creat);
+   $substitutionarray['document_user_creat'] = $creator->firstname . ' ' . $creator->lastname;
+   
+   $modification = new User($db);
+   $modification->fetch($object->fk_user_modif);
+   $substitutionarray['document_user_modif'] = $modification->firstname . ' ' . $modification->lastname;
 }
