@@ -382,9 +382,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
-
+	print '<style>.longmessagecut{max-height: none !important;</style>';
 	print '<div class="fichecenter">';
-	print '<div class="fichehalfleft">';
+	// commented by christophe battarelprint '<div class="fichehalfleft">';
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border centpercent tableforfield">'."\n";
 
@@ -398,7 +398,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_view.tpl.php';
 
 	print '</table>';
-	print '</div>';
+	// commented by christophe battarelprint '</div>';
 	print '</div>';
 
 	print '<div class="clearboth"></div>';
